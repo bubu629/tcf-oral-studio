@@ -426,7 +426,7 @@ Retourne UNIQUEMENT un JSON valide:
       const apiKey = (localStorage.getItem(API_KEY_STORAGE) || document.getElementById("aiApiKey").value || "").trim();
       const topic = getActiveTopic();
 
-      if (!apiKey.startsWith("AIza")) {
+      if (!(apiKey.startsWith("AIza") || apiKey.startsWith("AQ."))) {
         btnNext.disabled = false;
         alert("请先在下方第 2 栏填入你的 Gemini API Key (AIza...) 并保存，才能开启真人实时语音对话互动！");
         await startTurnRecording();
@@ -495,7 +495,7 @@ Retourne UNIQUEMENT un JSON valide:
       const apiKey = (localStorage.getItem(API_KEY_STORAGE) || document.getElementById("aiApiKey").value || "").trim();
       const fullTranscript = transcriptHistory.map(t => "[" + t.tache.toUpperCase() + "] " + t.candidate_text).join("\n");
 
-      if (!fullTranscript.trim() || !apiKey.startsWith("AIza")) {
+      if (!fullTranscript.trim() || !(apiKey.startsWith("AIza") || apiKey.startsWith("AQ."))) {
         document.getElementById("reportPanel").style.display = "block";
         document.getElementById("overallHeadline").innerText = "预估成绩: 0 / 20 (Niveau A0 — NCLC 0)";
         document.getElementById("examinerSummary").innerText = "❌ 未检测到有效法语对话记录（或未配置 Gemini API Key）。";
