@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>TCF Canada Oral Studio v1.0.6</title>
+  <title>TCF Canada Oral Studio v1.0.7</title>
   <style>
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
@@ -23,14 +23,15 @@
     .btn-green { background: #16a34a; }
     .btn-red { background: #dc2626; }
     .btn-amber { background: #d97706; }
+    .btn-mini { padding: 4px 8px; font-size: 11px; background: #334155; border-radius: 6px; margin-left: 6px; }
     .stage-pills { display: flex; gap: 6px; margin-bottom: 10px; }
     .pill { flex: 1; text-align: center; padding: 8px 4px; border-radius: 8px; background: #0b1222; border: 1px solid #2a3f5f; font-size: 11.5px; color: #94a3b8; }
     .pill.active { border-color: #38bdf8; color: #38bdf8; font-weight: 700; background: #172554; }
-    .chat-box { height: 260px; overflow-y: auto; background: #070c18; border: 1px solid #2a3f5f; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+    .chat-box { height: 280px; overflow-y: auto; background: #070c18; border: 1px solid #2a3f5f; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
     .msg { max-width: 88%; padding: 10px 12px; border-radius: 10px; font-size: 13.5px; line-height: 1.5; }
     .msg.examiner { background: #1e293b; border-left: 3px solid #38bdf8; align-self: flex-start; }
     .msg.candidate { background: #172554; border-right: 3px solid #22c55e; align-self: flex-end; }
-    .msg-meta { font-size: 11px; color: #94a3b8; margin-bottom: 3px; }
+    .msg-meta { font-size: 11px; color: #94a3b8; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; }
     .hint-bar { background: rgba(23, 37, 84, 0.7); border: 1px dashed #3b82f6; padding: 8px 10px; border-radius: 8px; font-size: 12px; color: #93c5fd; margin-top: 10px; line-height: 1.45; }
     .controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
     .controls button { flex: 1; min-width: 105px; }
@@ -46,7 +47,7 @@
     <div class="topbar">
       <div>
         <strong style="font-size:17px;">🇨🇦 TCF Canada 口语全真模拟考官</strong>
-        <div style="font-size:11.5px;color:#94a3b8;">v1.0.6 · 真实录音分析 · 严苛 NCLC 评分与法语语法纠错</div>
+        <div style="font-size:11.5px;color:#94a3b8;">v1.0.7 · 原生安卓法语朗读 · AI 实时听音对话互动 · 严苛 NCLC 评分</div>
       </div>
       <div id="licenseBadge" class="badge">初始化中...</div>
     </div>
@@ -59,7 +60,7 @@
       <select id="t3Select"></select>
       <div style="display:flex;gap:8px;margin-top:12px;">
         <button class="btn-amber" style="flex:1;" onclick="pickRandomTopics()">🎲 随机抽题</button>
-        <button class="btn-green" style="flex:1.4;" onclick="startExam()">🎙️ 开始模拟考试</button>
+        <button class="btn-green" style="flex:1.4;" onclick="startExam()">🎙️ 开始真人语音模考</button>
       </div>
     </div>
 
@@ -70,21 +71,21 @@
         <div id="pill-tache3" class="pill">Tâche 3 · 观点辩论</div>
       </div>
       <div style="display:flex;justify-content:space-between;font-size:12px;color:#94a3b8;margin-bottom:8px;">
-        <span id="recStatus">⚪ 尚未开始录音</span>
+        <span id="recStatus">⚪ 尚未开始考试</span>
         <span id="timerDisplay">⏱️ 00:00</span>
       </div>
       <div id="chatBox" class="chat-box">
         <div class="msg examiner">
-          <div class="msg-meta">Examinateur TCF Canada</div>
-          请先抽取题目并点击 <b>「开始模拟考试」</b>。<br/>
-          💡 <b>录音模式说明：</b>为避免安卓麦克风冲突，开始后默认全程高清录音；如需实时文字显示，可直接点击下方输入框使用手机键盘的「法语语音输入」或手动输入，说完点「说完了，下一步」。
+          <div class="msg-meta"><span>Examinateur TCF Canada</span></div>
+          请先在下方第 2 栏填入你的 <b>Gemini API Key (AIza...)</b>，然后点击上方 <b>「开始真人语音模考」</b>。<br/>
+          考官会自动<b>大声用法语朗读提问</b>，你直接对着手机说，说完点「说完了，下一步」，考官会<b>立刻听懂你的话并用真人法语语音实时追问互动</b>！
         </div>
       </div>
-      <div id="hintBar" class="hint-bar">💡 若在下方「AI 听音评分设置」填入 Gemini 或 OpenAI Key，结束考试时将直接把你的真实录音发给 AI 听音转写并逐句精批语法！</div>
-      <textarea id="candidateInput" rows="3" placeholder="（可选）点击此处用手机键盘语音输入或打字记录法语回答；若配置了 AI Key，直接对着手机说话录音即可，考完 AI 自动听音转写！"></textarea>
+      <div id="hintBar" class="hint-bar">💡 提示：每条考官消息右上角都有「🔊 朗读」按钮，随时可重听。</div>
+      <textarea id="candidateInput" rows="2" placeholder="（可选）直接说话录音即可，无需打字；也可在此手动输入法语..."></textarea>
       <div class="controls">
-        <button id="btnNext" class="btn-green" onclick="submitTurnAndNext()" disabled>➡️ 说完了，下一步</button>
-        <button id="btnFinish" class="btn-red" onclick="finishExamAndAnalyze()" disabled>🏁 结束并真实评分</button>
+        <button id="btnNext" class="btn-green" onclick="submitTurnAndNext()" disabled>➡️ 说完了，听考官回应</button>
+        <button id="btnFinish" class="btn-red" onclick="finishExamAndAnalyze()" disabled>🏁 结束并生成评分</button>
       </div>
     </div>
 
@@ -99,19 +100,22 @@
         <div class="score-box"><div class="score-val" id="scGrammar">-</div><div style="font-size:11px;color:#94a3b8;">语法结构准确度</div></div>
         <div class="score-box"><div class="score-val" id="scTask">-</div><div style="font-size:11px;color:#94a3b8;">任务完成与互动</div></div>
       </div>
-      <h3>📝 考生录音转写文本 (Transcript)</h3>
+      <h3>📝 考生完整对话转写 (Transcript)</h3>
       <div id="transcriptOutput" class="transcript-box">（无有效转写内容）</div>
       <h3 style="margin-top:12px;">🔍 语法错误与地道纠正</h3>
       <div id="grammarList"></div>
-      <h3 style="margin-top:12px;">🎧 本场考生录音回放</h3>
+      <h3 style="margin-top:12px;">🎧 最近一轮考生录音回放</h3>
       <audio id="audioPlayback" controls style="width:100%;margin-top:6px;"></audio>
     </div>
 
     <div class="card">
-      <h3>2. AI 真实听音转写与考官精批设置（强烈推荐）</h3>
-      <label>填入 Gemini API Key (AIza...) 或 OpenAI API Key (sk-...) — 仅保存在本机，直接听你的真实录音判分</label>
-      <input type="password" id="aiApiKey" placeholder="粘贴 AIza... (Gemini) 或 sk-... (OpenAI)" />
-      <button style="width:100%;margin-top:8px;background:#0284c7;" onclick="saveApiKey()">💾 保存 AI 听音评分 Key</button>
+      <h3>2. AI 实时语音互动与评分 Key（必填以开启真人互动）</h3>
+      <label>填入 Gemini API Key (AIza...) — 仅存本机，驱动每轮实时听音互动与考后精批</label>
+      <input type="password" id="aiApiKey" placeholder="粘贴 AIza... (Google AI Studio 免费申请)" />
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button style="flex:1;background:#0284c7;" onclick="saveApiKey()">💾 保存 Key</button>
+        <button style="flex:1;background:#475569;" onclick="testVoice()">🔊 测试法语语音朗读</button>
+      </div>
     </div>
 
     <div class="card">
@@ -122,10 +126,10 @@
 
     <div class="card" style="border-color:#475569;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-        <h3 style="margin:0;font-size:13px;color:#94a3b8;">🛠️ 系统运行与安卓环境诊断日志</h3>
+        <h3 style="margin:0;font-size:13px;color:#94a3b8;">🛠️ 系统运行与语音引擎诊断日志</h3>
         <button style="padding:4px 10px;font-size:11px;background:#334155;" onclick="copyLogs()">📋 复制日志</button>
       </div>
-      <div id="debugLogBox" style="height:130px;overflow-y:auto;background:#030712;border:1px solid #1e293b;border-radius:6px;padding:8px;font-family:monospace;font-size:11px;color:#38bdf8;line-height:1.45;"></div>
+      <div id="debugLogBox" style="height:140px;overflow-y:auto;background:#030712;border:1px solid #1e293b;border-radius:6px;padding:8px;font-family:monospace;font-size:11px;color:#38bdf8;line-height:1.45;"></div>
     </div>
   </div>
 
@@ -136,7 +140,8 @@
     let activeLicense = { tier: "COMMUNITY", unlock_all_topics: false };
     let visibleBank = { tache1: [], tache2: [], tache3: [] };
     let currentStage = "tache1", turnIndex = 0, turnStartTime = Date.now(), examStartTime = 0, timerInterval = null;
-    let transcriptHistory = [], mediaRecorder = null, audioChunks = [], audioMimeType = "audio/webm";
+    let transcriptHistory = [];
+    let micStream = null, mediaRecorder = null, turnChunks = [], audioMimeType = "audio/webm", lastTurnBlob = null;
 
     function sysLog(level, msg, detail) {
       const box = document.getElementById("debugLogBox");
@@ -158,11 +163,59 @@
     window.onerror = (m, s, l) => sysLog("ERR", "JS Error: " + m, "Line " + l);
     window.addEventListener("unhandledrejection", e => sysLog("ERR", "Promise Error", e.reason && e.reason.message ? e.reason.message : String(e.reason)));
 
+    // Native Android Capacitor TTS first -> fallback to Web SpeechSynthesis
+    async function speakFrench(text) {
+      if (!text) return;
+      const nativeTTS = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.TextToSpeech;
+      if (nativeTTS) {
+        try {
+          sysLog("INFO", "Speaking via Android Native TTS (fr-CA)...");
+          await nativeTTS.stop().catch(() => {});
+          await nativeTTS.speak({
+            text: text,
+            lang: "fr-CA",
+            rate: 0.95,
+            pitch: 1.0,
+            volume: 1.0,
+            category: "ambient"
+          });
+          return;
+        } catch (e) {
+          sysLog("WARN", "Native TTS fr-CA failed, retrying fr-FR", e.message || String(e));
+          try {
+            await nativeTTS.speak({ text: text, lang: "fr-FR", rate: 0.95, pitch: 1.0, volume: 1.0 });
+            return;
+          } catch (e2) {
+            sysLog("ERR", "Native TTS failed", e2.message || String(e2));
+          }
+        }
+      }
+      // Browser fallback
+      try {
+        if ("speechSynthesis" in window) {
+          sysLog("INFO", "Speaking via Web SpeechSynthesis...");
+          window.speechSynthesis.cancel();
+          const utter = new SpeechSynthesisUtterance(text);
+          utter.lang = "fr-CA";
+          utter.rate = 0.95;
+          window.speechSynthesis.speak(utter);
+        } else {
+          sysLog("WARN", "No TTS engine available on this device");
+        }
+      } catch (e) {
+        sysLog("ERR", "Web TTS error", e.message);
+      }
+    }
+
+    function testVoice() {
+      speakFrench("Bonjour ! Je suis votre examinateur pour le TCF Canada. Êtes-vous prêt à commencer ?");
+    }
+
     function saveApiKey() {
       const k = document.getElementById("aiApiKey").value.trim();
       localStorage.setItem(API_KEY_STORAGE, k);
-      sysLog("INFO", k ? "AI Key saved (" + (k.startsWith("AIza") ? "Gemini" : "OpenAI") + ")" : "AI Key cleared (Offline Mode)");
-      alert(k ? "✅ AI 听音评分 Key 已保存！考完将直接分析你的真实录音。" : "已切换回纯离线规则模式。");
+      sysLog("INFO", k ? "AI Key saved" : "AI Key cleared");
+      alert(k ? "✅ Gemini API Key 已保存！现在开始模考即可实时语音对话互动。" : "已清除 Key。");
     }
 
     function parseLicensePayload(key) {
@@ -173,10 +226,7 @@
         const pad = b64.length % 4 ? "=".repeat(4 - (b64.length % 4)) : "";
         const obj = JSON.parse(decodeURIComponent(escape(atob(b64 + pad))));
         return obj && obj.tier ? obj : null;
-      } catch (e) {
-        sysLog("ERR", "Key parse failed", e.message);
-        return null;
-      }
+      } catch (e) { return null; }
     }
 
     function refreshBankUI() {
@@ -189,11 +239,7 @@
         visibleBank = FULL_BANK;
         document.getElementById("licenseBadge").innerText = "版本: " + activeLicense.tier + " (全题库已解锁)";
       } else {
-        visibleBank = {
-          tache1: FULL_BANK.tache1,
-          tache2: FULL_BANK.tache2.slice(0, 8),
-          tache3: FULL_BANK.tache3.slice(0, 8)
-        };
+        visibleBank = { tache1: FULL_BANK.tache1, tache2: FULL_BANK.tache2.slice(0, 8), tache3: FULL_BANK.tache3.slice(0, 8) };
         document.getElementById("licenseBadge").innerText = "COMMUNITY 免费版 (前8题)";
       }
       document.getElementById("t2Count").innerText = visibleBank.tache2.length + " / " + FULL_BANK.tache2.length;
@@ -204,18 +250,13 @@
       document.getElementById("t3Select").innerHTML = visibleBank.tache3.map((item, idx) =>
         '<option value="' + idx + '">[' + item.category + '] ' + item.prompt.slice(0, 38) + '...</option>'
       ).join("");
-      sysLog("INFO", "UI Ready | T2=" + visibleBank.tache2.length + "/" + FULL_BANK.tache2.length + ", T3=" + visibleBank.tache3.length + "/" + FULL_BANK.tache3.length);
     }
 
     function activateLicense() {
       const key = document.getElementById("licInput").value.trim();
       const payload = parseLicensePayload(key);
-      if (!payload) {
-        sysLog("ERR", "Invalid license key format");
-        return alert("激活码格式无效，请检查是否完整复制了 TCF1.xxx 激活码。");
-      }
+      if (!payload) return alert("激活码格式无效，请检查 TCF1.xxx。");
       localStorage.setItem(STORAGE_KEY, key);
-      sysLog("INFO", "License Activated", payload.tier);
       refreshBankUI();
       alert("🎉 永久买断激活成功！已解锁全部题库。");
     }
@@ -224,61 +265,81 @@
       if (!visibleBank.tache2.length) return;
       document.getElementById("t2Select").selectedIndex = Math.floor(Math.random() * visibleBank.tache2.length);
       document.getElementById("t3Select").selectedIndex = Math.floor(Math.random() * visibleBank.tache3.length);
-      sysLog("INFO", "Random topics selected");
-    }
-
-    function speakFrench(text) {
-      try {
-        if (!("speechSynthesis" in window)) return;
-        window.speechSynthesis.cancel();
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.lang = "fr-CA";
-        utter.rate = 0.95;
-        window.speechSynthesis.speak(utter);
-      } catch (e) { sysLog("WARN", "TTS skipped", e.message); }
     }
 
     function appendMessage(sender, label, text) {
       const box = document.getElementById("chatBox");
       const div = document.createElement("div");
       div.className = "msg " + sender;
-      div.innerHTML = '<div class="msg-meta">' + label + '</div><div>' + text + '</div>';
+      const meta = document.createElement("div");
+      meta.className = "msg-meta";
+      const span = document.createElement("span");
+      span.textContent = label;
+      meta.appendChild(span);
+      if (sender === "examiner") {
+        const btn = document.createElement("button");
+        btn.className = "btn-mini";
+        btn.textContent = "🔊 朗读";
+        btn.onclick = () => speakFrench(text);
+        meta.appendChild(btn);
+      }
+      const body = document.createElement("div");
+      body.textContent = text;
+      div.appendChild(meta);
+      div.appendChild(body);
       box.appendChild(div);
       box.scrollTop = box.scrollHeight;
+      return body;
     }
 
     function setStagePill(stage) {
       ["tache1", "tache2", "tache3"].forEach(s => document.getElementById("pill-" + s).classList.toggle("active", s === stage));
     }
 
-    async function startExam() {
-      if (!visibleBank.tache1.length) return alert("题库尚未加载完成，请查看底部诊断日志。");
-      sysLog("INFO", "Starting exam (Mic-exclusive recording mode)...");
-      currentStage = "tache1"; turnIndex = 0; transcriptHistory = []; audioChunks = [];
-      document.getElementById("chatBox").innerHTML = "";
-      document.getElementById("reportPanel").style.display = "none";
-      setStagePill("tache1");
-
+    async function startTurnRecording() {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        if (!micStream) {
+          micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        }
         const preferred = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
           ? "audio/webm;codecs=opus"
           : MediaRecorder.isTypeSupported("audio/mp4") ? "audio/mp4" : "audio/webm";
         audioMimeType = preferred.split(";")[0];
-        mediaRecorder = new MediaRecorder(stream, { mimeType: preferred });
-        mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
-        mediaRecorder.start(1000);
-        document.getElementById("recStatus").innerText = "🔴 正在高清录音 (" + audioMimeType + ")...";
-        sysLog("INFO", "Mic recording started", preferred);
+        turnChunks = [];
+        mediaRecorder = new MediaRecorder(micStream, { mimeType: preferred });
+        mediaRecorder.ondataavailable = e => { if (e.data.size > 0) turnChunks.push(e.data); };
+        mediaRecorder.start(500);
+        turnStartTime = Date.now();
+        document.getElementById("recStatus").innerText = "🔴 轮到你说话（正在录音）...";
       } catch (err) {
-        document.getElementById("recStatus").innerText = "⚠️ 无麦克风权限（可打字作答）";
-        sysLog("ERR", "Mic unavailable", err.name + ": " + err.message);
+        document.getElementById("recStatus").innerText = "⚠️ 麦克风受限（可打字作答）";
+        sysLog("ERR", "Mic start failed", err.name + ": " + err.message);
       }
+    }
+
+    async function stopTurnRecording() {
+      if (!mediaRecorder || mediaRecorder.state === "inactive") return null;
+      return new Promise(resolve => {
+        mediaRecorder.onstop = () => {
+          const blob = new Blob(turnChunks, { type: audioMimeType });
+          lastTurnBlob = blob;
+          resolve(blob);
+        };
+        mediaRecorder.stop();
+      });
+    }
+
+    async function startExam() {
+      if (!visibleBank.tache1.length) return alert("题库尚未加载完成。");
+      currentStage = "tache1"; turnIndex = 0; transcriptHistory = [];
+      document.getElementById("chatBox").innerHTML = "";
+      document.getElementById("reportPanel").style.display = "none";
+      setStagePill("tache1");
 
       document.getElementById("btnNext").disabled = false;
       document.getElementById("btnFinish").disabled = false;
 
-      examStartTime = Date.now(); turnStartTime = Date.now();
+      examStartTime = Date.now();
       clearInterval(timerInterval);
       timerInterval = setInterval(() => {
         const sec = Math.floor((Date.now() - examStartTime) / 1000);
@@ -287,81 +348,15 @@
 
       const firstPrompt = visibleBank.tache1[0].prompt;
       appendMessage("examiner", "Examinateur · Tâche 1", firstPrompt);
-      speakFrench(firstPrompt);
+      document.getElementById("recStatus").innerText = "🔊 考官正在朗读提问...";
+      await speakFrench(firstPrompt);
+      await startTurnRecording();
     }
 
     function getActiveTopic() {
       if (currentStage === "tache1") return visibleBank.tache1[0];
       if (currentStage === "tache2") return visibleBank.tache2[document.getElementById("t2Select").value];
       return visibleBank.tache3[document.getElementById("t3Select").value];
-    }
-
-    function submitTurnAndNext() {
-      const inputEl = document.getElementById("candidateInput");
-      const text = inputEl.value.trim();
-      const hasAiKey = (localStorage.getItem(API_KEY_STORAGE) || "").trim().length > 10;
-      const sec = Math.max(2, Math.round((Date.now() - turnStartTime) / 1000));
-
-      if (!text && !hasAiKey) {
-        return alert("当前为纯离线模式（未填 AI Key），请先在输入框输入或用键盘语音输入你的法语回答，再点「下一步」；如果只想纯说话录音让 AI 听音判分，请先在下方填入 Gemini/OpenAI Key。");
-      }
-
-      const topic = getActiveTopic();
-      const displayTxt = text || "🎙️ [已录制语音回答 · " + sec + "秒，待考完 AI 听音转写]";
-      appendMessage("candidate", "Candidat (你 · " + sec + "s)", displayTxt);
-      transcriptHistory.push({ tache: currentStage, turn_index: turnIndex, examiner_prompt: topic.prompt, candidate_text: text, duration_sec: sec });
-      sysLog("INFO", "Turn recorded", currentStage + " #" + turnIndex + " (" + sec + "s)");
-
-      inputEl.value = ""; turnStartTime = Date.now();
-
-      let reply = "", hint = "", done = false;
-      if (currentStage === "tache1") {
-        if (turnIndex === 0) {
-          reply = "Très bien, merci. Pouvez-vous me parler de votre expérience professionnelle et de vos motivations pour le Canada ?";
-          hint = "考官追问：请补充工作经验与移民动机。";
-        } else {
-          reply = "Parfait, passons à la Tâche 2 (Interaction). Lisez la consigne et posez-moi vos questions.";
-          hint = "Tâche 1 完成！已切换到 Tâche 2 情景发问。"; done = true;
-        }
-      } else if (currentStage === "tache2") {
-        const remaining = (topic.keywords || []).filter(kw => !text.toLowerCase().includes(kw.toLowerCase()));
-        if (turnIndex >= 4) {
-          reply = "Merci pour vos questions précises. Passons à la Tâche 3.";
-          hint = "Tâche 2 完成！已进入 Tâche 3 辩论。"; done = true;
-        } else {
-          const nextA = remaining[0] || "les modalités pratiques";
-          reply = "Bien sûr ! Tout est très flexible. Avez-vous d'autres questions sur " + nextA + " ?";
-          hint = "💡 建议继续追问：" + (remaining.slice(0, 3).join(" / ") || "预约与优惠") + "（已问 " + (turnIndex + 1) + " 轮）。";
-        }
-      } else {
-        if (turnIndex === 0) {
-          reply = "Votre point de vue est intéressant. Cependant, certaines personnes pensent le contraire. Comment répondez-vous à ces critiques ?";
-          hint = "🔥 考官反驳追问：请用 « Certes... mais / En revanche... » 让步反驳！";
-        } else {
-          reply = "Je vous remercie. L’épreuve d’expression orale est terminée.";
-          hint = "🎉 考试结束，正在分析..."; done = true;
-        }
-      }
-
-      appendMessage("examiner", "Examinateur · " + currentStage.toUpperCase(), reply);
-      document.getElementById("hintBar").innerText = hint;
-      speakFrench(reply);
-
-      if (done) {
-        if (currentStage === "tache1") {
-          currentStage = "tache2"; turnIndex = 0; setStagePill("tache2");
-          const t2 = getActiveTopic();
-          setTimeout(() => { appendMessage("examiner", "Consigne Tâche 2 (" + t2.role + ")", "[" + t2.category + "] " + t2.prompt); speakFrench(t2.prompt); }, 900);
-        } else if (currentStage === "tache2") {
-          currentStage = "tache3"; turnIndex = 0; setStagePill("tache3");
-          const t3 = getActiveTopic();
-          setTimeout(() => { appendMessage("examiner", "Consigne Tâche 3", "[" + t3.category + "] " + t3.prompt); speakFrench(t3.prompt); }, 900);
-        } else {
-          finishExamAndAnalyze();
-        }
-      } else {
-        turnIndex++;
-      }
     }
 
     function blobToBase64(blob) {
@@ -373,220 +368,204 @@
       });
     }
 
-    async function gradeWithGeminiAudio(apiKey, audioBlob, topicsSummary) {
-      sysLog("INFO", "Sending audio to Gemini for real transcription & TCF grading...");
-      const base64Audio = await blobToBase64(audioBlob);
-      const prompt = `Tu es un examinateur officiel et strict du TCF Canada (Expression Orale).
-Voici l'enregistrement audio complet d'un candidat pour les sujets suivants: ${topicsSummary}.
+    async function interactWithGeminiTurn(apiKey, audioBlob, typedText, stage, topic, turnIdx) {
+      const parts = [];
+      const historyText = transcriptHistory.slice(-4).map(h => "Examinateur: " + h.examiner_prompt + "\nCandidat: " + h.candidate_text).join("\n---\n");
+      const instruction = `Tu es un examinateur francophone réel du TCF Canada (Expression Orale).
+Phase actuelle: ${stage.toUpperCase()} (Tour #${turnIdx + 1}).
+Rôle à jouer: ${topic.role || "Examinateur TCF Canada"}.
+Consigne du sujet: ${topic.prompt}
+Historique récent:
+${historyText || "(Début)"}
 
-RÈGLES STRICTES (TRÈS IMPORTANT):
-1. Transcris EXACTEMENT ce que tu entends dans l'audio (même si c'est du silence, du bruit, du chinois, ou "la la la").
-2. Si l'audio ne contient PAS de français cohérent (ex: silence, "la la la", chinois, moins de 15 mots français), donne STRICTEMENT 0/20 partout, niveau "A0", NCLC 0, et explique honnêtement pourquoi. Ne donne JAMAIS une note inventée !
-3. Si le candidat parle français, note rigoureusement selon la grille officielle TCF Canada (0 à 20) et liste TOUTES les erreurs réelles de grammaire, conjugaison, genre, prépositions ou prononciation entendues.
+Tâche:
+1. Écoute attentivement l'audio (ou lis le texte tapé) du candidat et transcris EXACTEMENT ce qu'il a dit dans "user_transcript".
+2. Réponds-lui NATURELLEMENT en français comme un vrai examinateur/interlocuteur humain dans "examiner_reply_fr" (2 à 3 phrases max):
+   - En Tâche 1: réagis à ce qu'il vient de dire et pose une question de suivi naturelle (après 2 tours, propose de passer à la Tâche 2 et mets should_advance_stage=true).
+   - En Tâche 2: réponds précisément à SA question dans ton rôle (${topic.role || "interlocuteur"}) avec des détails réalistes, puis invite-le à poser d'autres questions (après 4-5 tours, mets should_advance_stage=true).
+   - En Tâche 3: réagis à SON argument et oppose-lui une contre-argumentation stimulante (après 2 tours, conclus l'examen et mets should_advance_stage=true).
+   - Si le candidat n'a rien dit d'intelligible (silence, chinois, "la la la"), demande-lui poliment en français de répéter sa réponse en français et mets should_advance_stage=false.
+3. Donne un bref conseil en chinois dans "hint_zh".
 
-Retourne UNIQUEMENT un JSON valide avec cette structure exacte:
-{
-  "transcript": "transcription exacte de l'audio",
-  "overall_score": 0,
-  "cefr": "A0/A1/A2/B1/B2/C1/C2",
-  "nclc": 0,
-  "fluency": 0,
-  "lexical": 0,
-  "grammar": 0,
-  "task": 0,
-  "summary_zh": "中文详细点评（实事求是，指出真实表现）",
-  "grammar_issues": [
-    {"original": "考生原话错误片段", "correction": "地道法语纠正", "explanation": "中文语法解释"}
-  ]
-}`;
+Retourne UNIQUEMENT un JSON valide:
+{"user_transcript":"...","examiner_reply_fr":"...","hint_zh":"...","should_advance_stage":false}`;
+
+      parts.push({ text: instruction + (typedText ? "\nTexte saisi par le candidat: " + typedText : "") });
+      if (audioBlob && audioBlob.size > 800) {
+        const b64 = await blobToBase64(audioBlob);
+        parts.push({ inline_data: { mime_type: audioMimeType, data: b64 } });
+      }
 
       const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + encodeURIComponent(apiKey);
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [{
-            parts: [
-              { text: prompt },
-              { inline_data: { mime_type: audioMimeType, data: base64Audio } }
-            ]
-          }],
+          contents: [{ parts }],
           generationConfig: { responseMimeType: "application/json" }
         })
       });
-      if (!res.ok) throw new Error("Gemini API HTTP " + res.status + ": " + (await res.text()).slice(0, 120));
+      if (!res.ok) throw new Error("Gemini HTTP " + res.status);
       const data = await res.json();
-      const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
-      return JSON.parse(rawText);
+      return JSON.parse(data.candidates?.[0]?.content?.parts?.[0]?.text || "{}");
     }
 
-    async function gradeWithOpenAIAudio(apiKey, audioBlob, topicsSummary) {
-      sysLog("INFO", "Sending audio to OpenAI Whisper + GPT-4o-mini...");
-      const form = new FormData();
-      form.append("file", audioBlob, "recording.webm");
-      form.append("model", "whisper-1");
-      const wRes = await fetch("https://api.openai.com/v1/audio/transcriptions", {
-        method: "POST",
-        headers: { Authorization: "Bearer " + apiKey },
-        body: form
-      });
-      if (!wRes.ok) throw new Error("Whisper HTTP " + wRes.status);
-      const wData = await wRes.json();
-      const transcript = (wData.text || "").trim();
-      sysLog("INFO", "Whisper transcribed", transcript.slice(0, 60));
+    async function submitTurnAndNext() {
+      const btnNext = document.getElementById("btnNext");
+      btnNext.disabled = true;
+      const inputEl = document.getElementById("candidateInput");
+      const typedText = inputEl.value.trim();
+      const sec = Math.max(2, Math.round((Date.now() - turnStartTime) / 1000));
 
-      const gRes = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: "Bearer " + apiKey },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          response_format: { type: "json_object" },
-          messages: [
-            { role: "system", content: "Tu es un examinateur officiel et strict du TCF Canada. Si la transcription est vide, en chinois, ou 'la la la' (<15 mots français), donne 0/20 partout (cefr: A0, nclc: 0). Retourne un JSON strict: {transcript, overall_score, cefr, nclc, fluency, lexical, grammar, task, summary_zh, grammar_issues:[{original, correction, explanation}]}." },
-            { role: "user", content: "Sujets: " + topicsSummary + "\nTranscription Whisper: " + transcript }
-          ]
-        })
-      });
-      if (!gRes.ok) throw new Error("GPT HTTP " + gRes.status);
-      const gData = await gRes.json();
-      const parsed = JSON.parse(gData.choices?.[0]?.message?.content || "{}");
-      parsed.transcript = transcript;
-      return parsed;
-    }
-
-    function gradeStrictlyOffline(turns) {
-      const allText = turns.map(t => t.candidate_text).join(" ").trim();
-      const frenchCommon = /\b(je|tu|il|elle|nous|vous|ils|elles|le|la|les|un|une|des|est|suis|sont|avoir|être|pour|dans|avec|que|qui|pas|plus|très|mais|donc|bonjour|merci|canada|québec|travail|prix|horaires|pense|avis)\b/gi;
-      const words = allText ? allText.split(/\s+/).filter(Boolean) : [];
-      const frMatches = allText.match(frenchCommon) || [];
-
-      if (words.length < 10 || frMatches.length < 3) {
-        return {
-          transcript: allText || "（未检测到任何法语文字输入。纯离线模式无法直接听懂录音音频，请在上方填入 Gemini/OpenAI Key 开启真实听音转写，或在作答框输入法语。）",
-          overall_score: 0, cefr: "A0", nclc: 0, fluency: 0, lexical: 0, grammar: 0, task: 0,
-          summary_zh: "❌ 未检测到有效法语作答（有效法语词数: " + frMatches.length + "）。拒绝给出虚假保底分！如需直接分析你的录音音频，请在下方第 2 栏填入 Gemini 或 OpenAI Key。",
-          grammar_issues: [{ original: allText || "(空内容)", correction: "请使用法语完成 Tâche 1/2/3 对话作答", explanation: "系统已开启严格防作弊校验：无有效法语句子一律计 0 分。" }]
-        };
+      // 1. Stop recording for this turn first (frees Android audio focus for TTS!)
+      const turnBlob = await stopTurnRecording();
+      if (turnBlob) {
+        document.getElementById("audioPlayback").src = URL.createObjectURL(turnBlob);
       }
 
-      const rules = [
-        { regex: /\bje suis aller\b/gi, fix: () => "je suis allé(e)", exp: "复合过去时中 aller 必须用 être + 过去分词 allé(e)。" },
-        { regex: /\bj'ai allé\b/gi, fix: () => "je suis allé(e)", exp: "动词 aller 的复合过去时助动词是 être，不能用 avoir。" },
-        { regex: /\bj'ai venu\b/gi, fix: () => "je suis venu(e)", exp: "venir 的复合过去时助动词必须是 être。" },
-        { regex: /\bsi j'aurais\b|\bsi tu aurais\b/gi, fix: () => "si j'avais / si tu avais", exp: "Si 引导的条件从句不能直接用条件式，必须用未完成过去时 Imparfait。" },
-        { regex: /\bil faut que je (vais|peux|fais|suis|ai)\b/gi, fix: () => "il faut que j'aille / je puisse / je fasse / je sois / j'aie", exp: "il faut que 后面必须接虚拟式 (Subjonctif)。" },
-        { regex: /\bje veux que tu (vas|peux|fais|es|as)\b/gi, fix: () => "je veux que tu ailles / puisses / fasses / sois / aies", exp: "vouloir que 后面必须接虚拟式 (Subjonctif)。" },
-        { regex: /\bparce que de\b/gi, fix: () => "à cause de / grâce à", exp: "parce que 接完整句子；接名词必须用 à cause de 或 grâce à。" },
-        { regex: /\bdes bons\b|\bdes grands\b|\bdes petits\b|\bdes nouveaux\b/gi, fix: m => m.replace(/^des\s+/i, "de "), exp: "复数形容词位于复数名词前时，des 需变为 de。" },
-        { regex: /\bje suis d'accord avec vous que\b/gi, fix: () => "je suis d'accord avec vous sur le fait que", exp: "être d'accord 不能直接接 que 从句。" },
-        { regex: /\btrès beaucoup\b/gi, fix: () => "beaucoup (不要加 très)", exp: "法语中 beaucoup 前面绝对不能加 très。" },
-        { regex: /\bvisiter mon ami\b|\bvisiter mes amis\b/gi, fix: () => "rendre visite à mon ami(e)", exp: "拜访「人」要用 rendre visite à，visiter 只用于地点/景点。" },
-        { regex: /\bcombien de prix\b/gi, fix: () => "quel est le tarif / combien ça coûte", exp: "地道法语问价格用 Quel est le tarif 或 Combien ça coûte。" }
-      ];
+      const apiKey = (localStorage.getItem(API_KEY_STORAGE) || document.getElementById("aiApiKey").value || "").trim();
+      const topic = getActiveTopic();
 
-      const issues = [];
-      for (const r of rules) {
-        const m = allText.match(r.regex);
-        if (m) m.forEach(x => issues.push({ original: x, correction: r.fix(x), explanation: r.exp }));
+      if (!apiKey.startsWith("AIza")) {
+        btnNext.disabled = false;
+        alert("请先在下方第 2 栏填入你的 Gemini API Key (AIza...) 并保存，才能开启真人实时语音对话互动！");
+        await startTurnRecording();
+        return;
       }
 
-      const connectors = ["d'abord","ensuite","enfin","cependant","pourtant","en revanche","donc","à mon avis","selon moi","je pense que","en conclusion","par ailleurs","de plus"];
-      const usedC = connectors.filter(c => allText.toLowerCase().includes(c));
-      const totalSec = Math.max(15, turns.reduce((s, t) => s + (t.duration_sec || 15), 0));
-      const wpm = Math.round((words.length / totalSec) * 60);
+      const candBodyEl = appendMessage("candidate", "Candidat (你 · " + sec + "s)", "⏳ AI 考官正在听你的录音...");
+      document.getElementById("recStatus").innerText = "⏳ 考官正在听取并思考回应...";
+      inputEl.value = "";
 
-      const fluency = Math.min(18, Math.round(Math.min(words.length / 18, 12) + Math.min(wpm / 20, 6)));
-      const lexical = Math.min(18, Math.round(Math.min(frMatches.length / 5, 10) + usedC.length * 1.5));
-      const grammar = Math.max(2, Math.min(18, Math.round(12 + Math.min(words.length / 40, 4) - issues.length * 2.5)));
-      const task = Math.min(18, Math.round(turns.length * 2.5 + (words.length > 60 ? 5 : 2)));
-      const avg = Number(((fluency + lexical + grammar + task) / 4).toFixed(1));
-      const cefr = avg >= 16 ? "C1" : avg >= 12 ? "B2" : avg >= 9 ? "B1" : avg >= 5 ? "A2" : "A1";
-      const nclc = avg >= 16 ? 10 : avg >= 14 ? 9 : avg >= 12 ? 7 : avg >= 9 ? 6 : avg >= 5 ? 4 : 2;
+      try {
+        const aiRes = await interactWithGeminiTurn(apiKey, turnBlob, typedText, currentStage, topic, turnIndex);
+        const realUserText = aiRes.user_transcript || typedText || "(未听清)";
+        candBodyEl.textContent = realUserText;
 
-      return {
-        transcript: allText,
-        overall_score: avg, cefr, nclc, fluency, lexical, grammar, task,
-        summary_zh: "纯离线文本分析：共识别 " + words.length + " 词（有效法语高频词 " + frMatches.length + " 处，逻辑连接词 " + usedC.length + " 个），检出 " + issues.length + " 处典型语法错误。",
-        grammar_issues: issues.length ? issues : [{ original: "(未触发离线规则库报错)", correction: "如需深度逐句语法纠错（阴阳性/动词变位/虚拟式），请配置 AI 听音 Key。", explanation: "纯离线正则仅覆盖 12 类高频错误，无法替代大模型听音精批。" }]
-      };
-    }
+        transcriptHistory.push({
+          tache: currentStage,
+          turn_index: turnIndex,
+          examiner_prompt: topic.prompt,
+          candidate_text: realUserText,
+          duration_sec: sec
+        });
+        sysLog("INFO", "Live Turn OK", currentStage + " #" + turnIndex + " | " + realUserText.slice(0, 35));
 
-    function renderReport(rep, modeLabel) {
-      document.getElementById("reportPanel").style.display = "block";
-      document.getElementById("gradingModeBadge").innerText = modeLabel;
-      document.getElementById("overallHeadline").innerText = "预估成绩: " + rep.overall_score + " / 20 (Niveau " + rep.cefr + " — NCLC " + rep.nclc + ")";
-      document.getElementById("examinerSummary").innerText = rep.summary_zh || "";
-      document.getElementById("scFluency").innerText = rep.fluency + " / 20";
-      document.getElementById("scLexical").innerText = rep.lexical + " / 20";
-      document.getElementById("scGrammar").innerText = rep.grammar + " / 20";
-      document.getElementById("scTask").innerText = rep.task + " / 20";
-      document.getElementById("transcriptOutput").innerText = rep.transcript || "（空）";
-      const list = Array.isArray(rep.grammar_issues) && rep.grammar_issues.length ? rep.grammar_issues : [{ original: "无", correction: "—", explanation: "未检出明显错误" }];
-      document.getElementById("grammarList").innerHTML = list.map(g =>
-        '<div class="issue-item"><div><span style="color:#f87171;text-decoration:line-through;">' + g.original + '</span> ➡️ <b style="color:#4ade80;">' + g.correction + '</b></div><div style="color:#cbd5e1;margin-top:4px;font-size:12px;">' + g.explanation + '</div></div>'
-      ).join("");
-      document.getElementById("reportPanel").scrollIntoView({ behavior: "smooth" });
+        const replyFr = aiRes.examiner_reply_fr || "Pouvez-vous préciser votre pensée ?";
+        appendMessage("examiner", "Examinateur · " + currentStage.toUpperCase(), replyFr);
+        document.getElementById("hintBar").innerText = "💡 " + (aiRes.hint_zh || "请继续用法语回答考官。");
+        document.getElementById("recStatus").innerText = "🔊 考官正在语音回应...";
+        await speakFrench(replyFr);
+
+        if (aiRes.should_advance_stage) {
+          if (currentStage === "tache1") {
+            currentStage = "tache2"; turnIndex = 0; setStagePill("tache2");
+            const t2 = getActiveTopic();
+            appendMessage("examiner", "Consigne Tâche 2 (" + t2.role + ")", "[" + t2.category + "] " + t2.prompt);
+            await speakFrench(t2.prompt);
+          } else if (currentStage === "tache2") {
+            currentStage = "tache3"; turnIndex = 0; setStagePill("tache3");
+            const t3 = getActiveTopic();
+            appendMessage("examiner", "Consigne Tâche 3", "[" + t3.category + "] " + t3.prompt);
+            await speakFrench(t3.prompt);
+          } else {
+            await finishExamAndAnalyze();
+            return;
+          }
+        } else {
+          turnIndex++;
+        }
+
+        btnNext.disabled = false;
+        await startTurnRecording();
+      } catch (e) {
+        sysLog("ERR", "Live Turn Gemini Failed", e.message);
+        candBodyEl.textContent = "❌ 请求失败: " + e.message;
+        btnNext.disabled = false;
+        await startTurnRecording();
+      }
     }
 
     async function finishExamAndAnalyze() {
       clearInterval(timerInterval);
       document.getElementById("btnFinish").disabled = true;
       document.getElementById("btnNext").disabled = true;
-
-      const leftover = document.getElementById("candidateInput").value.trim();
-      if (leftover) {
-        const topic = getActiveTopic();
-        transcriptHistory.push({ tache: currentStage, turn_index: turnIndex, examiner_prompt: topic.prompt, candidate_text: leftover, duration_sec: Math.max(3, Math.round((Date.now() - turnStartTime) / 1000)) });
-        document.getElementById("candidateInput").value = "";
-      }
-
-      let audioBlob = null;
-      if (mediaRecorder && mediaRecorder.state !== "inactive") {
-        await new Promise(resolve => { mediaRecorder.onstop = resolve; mediaRecorder.stop(); });
-        audioBlob = new Blob(audioChunks, { type: audioMimeType });
-        document.getElementById("recStatus").innerText = "✅ 录音完成 (" + Math.round(audioBlob.size / 1024) + " KB)";
-        document.getElementById("audioPlayback").src = URL.createObjectURL(audioBlob);
-        sysLog("INFO", "Audio finalized", Math.round(audioBlob.size / 1024) + " KB");
-      }
+      await stopTurnRecording();
 
       const apiKey = (localStorage.getItem(API_KEY_STORAGE) || document.getElementById("aiApiKey").value || "").trim();
-      const t2 = visibleBank.tache2[document.getElementById("t2Select").value]?.prompt || "";
-      const t3 = visibleBank.tache3[document.getElementById("t3Select").value]?.prompt || "";
-      const topicsSummary = "Tâche 2: " + t2 + " | Tâche 3: " + t3;
+      const fullTranscript = transcriptHistory.map(t => "[" + t.tache.toUpperCase() + "] " + t.candidate_text).join("\n");
 
-      if (apiKey && audioBlob && audioBlob.size > 1000) {
-        document.getElementById("recStatus").innerText = "⏳ AI 正在听取你的录音并逐句纠错...";
-        try {
-          const rep = apiKey.startsWith("AIza")
-            ? await gradeWithGeminiAudio(apiKey, audioBlob, topicsSummary)
-            : await gradeWithOpenAIAudio(apiKey, audioBlob, topicsSummary);
-          sysLog("INFO", "AI Audio Grading Complete", rep.cefr + " / NCLC " + rep.nclc);
-          document.getElementById("recStatus").innerText = "✅ AI 听音评分完成";
-          renderReport(rep, "🤖 评分引擎: 真实录音直传 " + (apiKey.startsWith("AIza") ? "Gemini 2.5 Flash" : "OpenAI Whisper + GPT-4o-mini"));
-          return;
-        } catch (e) {
-          sysLog("ERR", "AI Audio Grading Failed", e.message);
-          alert("AI 听音评分请求失败（" + e.message + "），已自动回退到严格离线校验模式。");
-        }
+      if (!fullTranscript.trim() || !apiKey.startsWith("AIza")) {
+        document.getElementById("reportPanel").style.display = "block";
+        document.getElementById("overallHeadline").innerText = "预估成绩: 0 / 20 (Niveau A0 — NCLC 0)";
+        document.getElementById("examinerSummary").innerText = "❌ 未检测到有效法语对话记录（或未配置 Gemini API Key）。";
+        document.getElementById("transcriptOutput").innerText = fullTranscript || "（空）";
+        return;
       }
 
-      const offlineRep = gradeStrictlyOffline(transcriptHistory);
-      sysLog("INFO", "Strict Offline Graded", offlineRep.cefr + " / NCLC " + offlineRep.nclc);
-      renderReport(offlineRep, "💻 评分引擎: 严格本地离线文本校验（未配置 AI 听音 Key）");
+      document.getElementById("recStatus").innerText = "⏳ 正在按 TCF Canada 官方标准生成最终语法与 NCLC 报告...";
+      try {
+        const prompt = `Tu es un examinateur officiel et strict du TCF Canada (Expression Orale).
+Voici la transcription complète de toutes les réponses du candidat:
+${fullTranscript}
+
+RÈGLES STRICTES:
+- Si le candidat n'a pas parlé français (silence, chinois, "la la la", moins de 15 mots français), donne 0/20 partout (cefr: "A0", nclc: 0).
+- Sinon, note rigoureusement sur 20 et liste toutes les erreurs réelles de grammaire, conjugaison, genre et syntaxe.
+
+Retourne UNIQUEMENT un JSON valide:
+{"overall_score":0,"cefr":"A0/A1/A2/B1/B2/C1/C2","nclc":0,"fluency":0,"lexical":0,"grammar":0,"task":0,"summary_zh":"中文总评","grammar_issues":[{"original":"原句错误","correction":"地道纠正","explanation":"中文解释"}]}`;
+
+        const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + encodeURIComponent(apiKey);
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { responseMimeType: "application/json" }
+          })
+        });
+        if (!res.ok) throw new Error("Gemini HTTP " + res.status);
+        const data = await res.json();
+        const rep = JSON.parse(data.candidates?.[0]?.content?.parts?.[0]?.text || "{}");
+
+        document.getElementById("reportPanel").style.display = "block";
+        document.getElementById("gradingModeBadge").innerText = "🤖 评分引擎: Gemini 2.5 Flash 实时听音对话全纪录精批";
+        document.getElementById("overallHeadline").innerText = "预估成绩: " + rep.overall_score + " / 20 (Niveau " + rep.cefr + " — NCLC " + rep.nclc + ")";
+        document.getElementById("examinerSummary").innerText = rep.summary_zh || "";
+        document.getElementById("scFluency").innerText = rep.fluency + " / 20";
+        document.getElementById("scLexical").innerText = rep.lexical + " / 20";
+        document.getElementById("scGrammar").innerText = rep.grammar + " / 20";
+        document.getElementById("scTask").innerText = rep.task + " / 20";
+        document.getElementById("transcriptOutput").innerText = fullTranscript;
+
+        const list = Array.isArray(rep.grammar_issues) && rep.grammar_issues.length ? rep.grammar_issues : [{ original: "无", correction: "—", explanation: "未检出明显错误" }];
+        document.getElementById("grammarList").innerHTML = list.map(g =>
+          '<div class="issue-item"><div><span style="color:#f87171;text-decoration:line-through;">' + g.original + '</span> ➡️ <b style="color:#4ade80;">' + g.correction + '</b></div><div style="color:#cbd5e1;margin-top:4px;font-size:12px;">' + g.explanation + '</div></div>'
+        ).join("");
+        document.getElementById("recStatus").innerText = "✅ 考试与评分全部完成";
+        sysLog("INFO", "Final Graded", rep.cefr + " / NCLC " + rep.nclc);
+        document.getElementById("reportPanel").scrollIntoView({ behavior: "smooth" });
+      } catch (e) {
+        sysLog("ERR", "Final Grading Failed", e.message);
+        alert("最终评分失败: " + e.message);
+      }
     }
 
     async function boot() {
-      sysLog("INFO", "Booting Offline Studio v1.0.6");
+      sysLog("INFO", "Booting Live Voice Studio v1.0.7");
+      const hasNativeTTS = !!(window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.TextToSpeech);
+      sysLog("INFO", "Android Native TTS Plugin: " + (hasNativeTTS ? "Available ✅" : "Web Fallback"));
       const savedKey = localStorage.getItem(API_KEY_STORAGE);
       if (savedKey) document.getElementById("aiApiKey").value = savedKey;
       try {
         const res = await fetch("./question-bank.json");
         if (!res.ok) throw new Error("HTTP " + res.status);
         FULL_BANK = await res.json();
-        sysLog("INFO", "Loaded question-bank.json | T2=" + FULL_BANK.tache2.length + ", T3=" + FULL_BANK.tache3.length);
+        sysLog("INFO", "Loaded Bank | T2=" + FULL_BANK.tache2.length + ", T3=" + FULL_BANK.tache3.length);
         refreshBankUI();
       } catch (e) {
-        sysLog("ERR", "Failed to load question-bank.json", e.message);
+        sysLog("ERR", "Load Bank Failed", e.message);
       }
     }
     boot();
