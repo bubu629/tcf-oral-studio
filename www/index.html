@@ -136,6 +136,14 @@
         </div>
       </div>
     </div>
+
+    <div class="card" style="margin-top:16px; border-color:#475569;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <h3 style="margin:0; font-size:13px; color:#94a3b8;">🛠️ 系统运行与安卓环境诊断日志</h3>
+        <button style="padding:4px 10px; font-size:11px; background:#334155;" onclick="navigator.clipboard?.writeText(document.getElementById('debugLogBox').innerText).then(()=>alert('已复制日志'))">📋 复制日志</button>
+      </div>
+      <div id="debugLogBox" style="height:140px; overflow-y:auto; background:#030712; border:1px solid #1e293b; border-radius:6px; padding:8px; font-family:monospace; font-size:11px; color:#38bdf8; line-height:1.45;"></div>
+    </div>
   </div>
 
   <script>
@@ -240,7 +248,7 @@
         mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) audioChunks.push(e.data); };
         mediaRecorder.start(1000);
         document.getElementById('recStatus').innerHTML = '<span class="rec-dot"></span>正在本地高清录音中...';
-      } catch (err) {
+      } catch (err) { sysLog("ERR", "Mic Error", err.name + ": " + err.message);
         document.getElementById('recStatus').innerText = '⚠️ 未检测到麦克风权限（仍可打字练习）';
       }
 
