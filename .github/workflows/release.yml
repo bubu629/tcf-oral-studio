@@ -37,7 +37,7 @@ jobs:
           java-version: '17'
       - name: Setup Capacitor Android + Native Text-to-Speech Plugin
         run: |
-          npm install @capacitor/core@6 @capacitor/cli@6 @capacitor/android@6 @capacitor-community/text-to-speech@6.0.0
+          npm install @capacitor/core@6 @capacitor/cli@6 @capacitor/android@6 @capacitor-community/text-to-speech@5.1.0
           npx cap add android
           npx cap sync android
       - name: Add Microphone Permissions
