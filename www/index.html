@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>TCF Canada Oral Studio</title>
+  <title>TCF Canada Oral Studio v1.0.6</title>
   <style>
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
@@ -26,18 +26,19 @@
     .stage-pills { display: flex; gap: 6px; margin-bottom: 10px; }
     .pill { flex: 1; text-align: center; padding: 8px 4px; border-radius: 8px; background: #0b1222; border: 1px solid #2a3f5f; font-size: 11.5px; color: #94a3b8; }
     .pill.active { border-color: #38bdf8; color: #38bdf8; font-weight: 700; background: #172554; }
-    .chat-box { height: 270px; overflow-y: auto; background: #070c18; border: 1px solid #2a3f5f; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+    .chat-box { height: 260px; overflow-y: auto; background: #070c18; border: 1px solid #2a3f5f; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
     .msg { max-width: 88%; padding: 10px 12px; border-radius: 10px; font-size: 13.5px; line-height: 1.5; }
     .msg.examiner { background: #1e293b; border-left: 3px solid #38bdf8; align-self: flex-start; }
     .msg.candidate { background: #172554; border-right: 3px solid #22c55e; align-self: flex-end; }
     .msg-meta { font-size: 11px; color: #94a3b8; margin-bottom: 3px; }
-    .hint-bar { background: rgba(23, 37, 84, 0.7); border: 1px dashed #3b82f6; padding: 8px 10px; border-radius: 8px; font-size: 12px; color: #93c5fd; margin-top: 10px; }
+    .hint-bar { background: rgba(23, 37, 84, 0.7); border: 1px dashed #3b82f6; padding: 8px 10px; border-radius: 8px; font-size: 12px; color: #93c5fd; margin-top: 10px; line-height: 1.45; }
     .controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
     .controls button { flex: 1; min-width: 105px; }
     .score-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 10px 0; }
     .score-box { background: #090f1d; border: 1px solid #2a3f5f; padding: 10px; border-radius: 8px; text-align: center; }
     .score-val { font-size: 18px; font-weight: 700; color: #38bdf8; }
-    .issue-item { background: #18181b; border-left: 3px solid #f59e0b; padding: 10px; border-radius: 6px; margin-bottom: 8px; font-size: 12.5px; }
+    .issue-item { background: #18181b; border-left: 3px solid #f59e0b; padding: 10px; border-radius: 6px; margin-bottom: 8px; font-size: 12.5px; line-height: 1.45; }
+    .transcript-box { background: #070c18; border: 1px solid #334155; border-radius: 8px; padding: 10px; font-size: 12.5px; color: #e2e8f0; margin-top: 8px; white-space: pre-wrap; line-height: 1.5; }
   </style>
 </head>
 <body>
@@ -45,7 +46,7 @@
     <div class="topbar">
       <div>
         <strong style="font-size:17px;">🇨🇦 TCF Canada 口语全真模拟考官</strong>
-        <div style="font-size:11.5px;color:#94a3b8;">离线真题库 · 真人语音对话 · NCLC 语法纠错</div>
+        <div style="font-size:11.5px;color:#94a3b8;">v1.0.6 · 真实录音分析 · 严苛 NCLC 评分与法语语法纠错</div>
       </div>
       <div id="licenseBadge" class="badge">初始化中...</div>
     </div>
@@ -75,36 +76,46 @@
       <div id="chatBox" class="chat-box">
         <div class="msg examiner">
           <div class="msg-meta">Examinateur TCF Canada</div>
-          请先在上方抽取题目，点击 <b>「开始模拟考试」</b>。
+          请先抽取题目并点击 <b>「开始模拟考试」</b>。<br/>
+          💡 <b>录音模式说明：</b>为避免安卓麦克风冲突，开始后默认全程高清录音；如需实时文字显示，可直接点击下方输入框使用手机键盘的「法语语音输入」或手动输入，说完点「说完了，下一步」。
         </div>
       </div>
-      <div id="hintBar" class="hint-bar">💡 操作：听考官朗读提问 → 语音或打字回答 → 点击「说完了，下一步」。</div>
-      <textarea id="candidateInput" rows="3" placeholder="在这里说话识别或直接输入你的法语回答..."></textarea>
+      <div id="hintBar" class="hint-bar">💡 若在下方「AI 听音评分设置」填入 Gemini 或 OpenAI Key，结束考试时将直接把你的真实录音发给 AI 听音转写并逐句精批语法！</div>
+      <textarea id="candidateInput" rows="3" placeholder="（可选）点击此处用手机键盘语音输入或打字记录法语回答；若配置了 AI Key，直接对着手机说话录音即可，考完 AI 自动听音转写！"></textarea>
       <div class="controls">
-        <button id="btnListen" onclick="toggleSpeechRecognition()" disabled>🎤 语音识别</button>
         <button id="btnNext" class="btn-green" onclick="submitTurnAndNext()" disabled>➡️ 说完了，下一步</button>
-        <button id="btnFinish" class="btn-red" onclick="finishExamAndAnalyze()" disabled>🏁 结束并评分</button>
+        <button id="btnFinish" class="btn-red" onclick="finishExamAndAnalyze()" disabled>🏁 结束并真实评分</button>
       </div>
     </div>
 
     <div id="reportPanel" class="card" style="display:none;">
-      <h2 style="margin:0;font-size:17px;color:#22c55e;">📊 TCF Canada 口语模拟评估报告</h2>
+      <h2 style="margin:0;font-size:17px;color:#22c55e;">📊 TCF Canada 口语评估与语法纠错报告</h2>
+      <div id="gradingModeBadge" style="font-size:11.5px;color:#38bdf8;margin-top:4px;"></div>
       <div id="overallHeadline" style="font-size:16px;font-weight:700;margin-top:8px;color:#fcd34d;"></div>
-      <div id="examinerSummary" style="font-size:13px;color:#cbd5e1;margin-top:6px;line-height:1.5;"></div>
+      <div id="examinerSummary" style="font-size:13px;color:#cbd5e1;margin-top:6px;line-height:1.55;"></div>
       <div class="score-grid">
         <div class="score-box"><div class="score-val" id="scFluency">-</div><div style="font-size:11px;color:#94a3b8;">流利度与连贯性</div></div>
         <div class="score-box"><div class="score-val" id="scLexical">-</div><div style="font-size:11px;color:#94a3b8;">词汇丰富度</div></div>
         <div class="score-box"><div class="score-val" id="scGrammar">-</div><div style="font-size:11px;color:#94a3b8;">语法结构准确度</div></div>
         <div class="score-box"><div class="score-val" id="scTask">-</div><div style="font-size:11px;color:#94a3b8;">任务完成与互动</div></div>
       </div>
-      <h3>🔍 语法错误与地道纠正</h3>
+      <h3>📝 考生录音转写文本 (Transcript)</h3>
+      <div id="transcriptOutput" class="transcript-box">（无有效转写内容）</div>
+      <h3 style="margin-top:12px;">🔍 语法错误与地道纠正</h3>
       <div id="grammarList"></div>
       <h3 style="margin-top:12px;">🎧 本场考生录音回放</h3>
       <audio id="audioPlayback" controls style="width:100%;margin-top:6px;"></audio>
     </div>
 
     <div class="card">
-      <h3>2. 永久买断激活码 (TCF1.xxx)</h3>
+      <h3>2. AI 真实听音转写与考官精批设置（强烈推荐）</h3>
+      <label>填入 Gemini API Key (AIza...) 或 OpenAI API Key (sk-...) — 仅保存在本机，直接听你的真实录音判分</label>
+      <input type="password" id="aiApiKey" placeholder="粘贴 AIza... (Gemini) 或 sk-... (OpenAI)" />
+      <button style="width:100%;margin-top:8px;background:#0284c7;" onclick="saveApiKey()">💾 保存 AI 听音评分 Key</button>
+    </div>
+
+    <div class="card">
+      <h3>3. 永久买断激活码 (TCF1.xxx)</h3>
       <input type="text" id="licInput" placeholder="粘贴 TCF1.xxx 买断激活码..." />
       <button style="width:100%;margin-top:8px;" onclick="activateLicense()">验证并永久解锁全部题库</button>
     </div>
@@ -120,11 +131,12 @@
 
   <script>
     const STORAGE_KEY = "tcf_canada_offline_license_v2";
+    const API_KEY_STORAGE = "tcf_canada_ai_key_v1";
     let FULL_BANK = { tache1: [], tache2: [], tache3: [] };
     let activeLicense = { tier: "COMMUNITY", unlock_all_topics: false };
     let visibleBank = { tache1: [], tache2: [], tache3: [] };
     let currentStage = "tache1", turnIndex = 0, turnStartTime = Date.now(), examStartTime = 0, timerInterval = null;
-    let transcriptHistory = [], mediaRecorder = null, audioChunks = [], recognition = null, isRecognizing = false;
+    let transcriptHistory = [], mediaRecorder = null, audioChunks = [], audioMimeType = "audio/webm";
 
     function sysLog(level, msg, detail) {
       const box = document.getElementById("debugLogBox");
@@ -145,6 +157,13 @@
 
     window.onerror = (m, s, l) => sysLog("ERR", "JS Error: " + m, "Line " + l);
     window.addEventListener("unhandledrejection", e => sysLog("ERR", "Promise Error", e.reason && e.reason.message ? e.reason.message : String(e.reason)));
+
+    function saveApiKey() {
+      const k = document.getElementById("aiApiKey").value.trim();
+      localStorage.setItem(API_KEY_STORAGE, k);
+      sysLog("INFO", k ? "AI Key saved (" + (k.startsWith("AIza") ? "Gemini" : "OpenAI") + ")" : "AI Key cleared (Offline Mode)");
+      alert(k ? "✅ AI 听音评分 Key 已保存！考完将直接分析你的真实录音。" : "已切换回纯离线规则模式。");
+    }
 
     function parseLicensePayload(key) {
       try {
@@ -234,7 +253,7 @@
 
     async function startExam() {
       if (!visibleBank.tache1.length) return alert("题库尚未加载完成，请查看底部诊断日志。");
-      sysLog("INFO", "Starting simulated exam...");
+      sysLog("INFO", "Starting exam (Mic-exclusive recording mode)...");
       currentStage = "tache1"; turnIndex = 0; transcriptHistory = []; audioChunks = [];
       document.getElementById("chatBox").innerHTML = "";
       document.getElementById("reportPanel").style.display = "none";
@@ -242,32 +261,20 @@
 
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder = new MediaRecorder(stream);
+        const preferred = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+          ? "audio/webm;codecs=opus"
+          : MediaRecorder.isTypeSupported("audio/mp4") ? "audio/mp4" : "audio/webm";
+        audioMimeType = preferred.split(";")[0];
+        mediaRecorder = new MediaRecorder(stream, { mimeType: preferred });
         mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
         mediaRecorder.start(1000);
-        document.getElementById("recStatus").innerText = "🔴 正在本地录音中...";
-        sysLog("INFO", "Mic recording started");
+        document.getElementById("recStatus").innerText = "🔴 正在高清录音 (" + audioMimeType + ")...";
+        sysLog("INFO", "Mic recording started", preferred);
       } catch (err) {
-        document.getElementById("recStatus").innerText = "⚠️ 无麦克风权限（可键盘语音/打字）";
-        sysLog("WARN", "Mic unavailable", err.name + ": " + err.message);
+        document.getElementById("recStatus").innerText = "⚠️ 无麦克风权限（可打字作答）";
+        sysLog("ERR", "Mic unavailable", err.name + ": " + err.message);
       }
 
-      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (SpeechRec) {
-        try {
-          recognition = new SpeechRec();
-          recognition.lang = "fr-FR"; recognition.continuous = true; recognition.interimResults = true;
-          recognition.onresult = event => {
-            let txt = "";
-            for (let i = 0; i < event.results.length; i++) txt += event.results[i][0].transcript;
-            document.getElementById("candidateInput").value = txt;
-          };
-          recognition.start(); isRecognizing = true;
-          sysLog("INFO", "WebSpeech STT started");
-        } catch (e) { sysLog("WARN", "STT error", e.message); }
-      }
-
-      document.getElementById("btnListen").disabled = false;
       document.getElementById("btnNext").disabled = false;
       document.getElementById("btnFinish").disabled = false;
 
@@ -283,12 +290,6 @@
       speakFrench(firstPrompt);
     }
 
-    function toggleSpeechRecognition() {
-      if (!recognition) return alert("当前安卓 WebView 不支持内置自动语音转写，请直接点击输入框，使用手机键盘上的「麦克风语音输入法」说法语！");
-      if (isRecognizing) { recognition.stop(); isRecognizing = false; document.getElementById("btnListen").innerText = "🎤 继续识别"; }
-      else { recognition.start(); isRecognizing = true; document.getElementById("btnListen").innerText = "⏸️ 暂停识别"; }
-    }
-
     function getActiveTopic() {
       if (currentStage === "tache1") return visibleBank.tache1[0];
       if (currentStage === "tache2") return visibleBank.tache2[document.getElementById("t2Select").value];
@@ -298,34 +299,33 @@
     function submitTurnAndNext() {
       const inputEl = document.getElementById("candidateInput");
       const text = inputEl.value.trim();
-      if (!text) return alert("请先说出或输入你的法语回答，再点击「说完了，下一步」。");
+      const hasAiKey = (localStorage.getItem(API_KEY_STORAGE) || "").trim().length > 10;
+      const sec = Math.max(2, Math.round((Date.now() - turnStartTime) / 1000));
 
-      const sec = Math.max(3, Math.round((Date.now() - turnStartTime) / 1000));
+      if (!text && !hasAiKey) {
+        return alert("当前为纯离线模式（未填 AI Key），请先在输入框输入或用键盘语音输入你的法语回答，再点「下一步」；如果只想纯说话录音让 AI 听音判分，请先在下方填入 Gemini/OpenAI Key。");
+      }
+
       const topic = getActiveTopic();
-      appendMessage("candidate", "Candidat (你 · " + sec + "s)", text);
+      const displayTxt = text || "🎙️ [已录制语音回答 · " + sec + "秒，待考完 AI 听音转写]";
+      appendMessage("candidate", "Candidat (你 · " + sec + "s)", displayTxt);
       transcriptHistory.push({ tache: currentStage, turn_index: turnIndex, examiner_prompt: topic.prompt, candidate_text: text, duration_sec: sec });
-      sysLog("INFO", "Turn submitted", currentStage + " #" + turnIndex);
+      sysLog("INFO", "Turn recorded", currentStage + " #" + turnIndex + " (" + sec + "s)");
 
       inputEl.value = ""; turnStartTime = Date.now();
-      if (recognition && isRecognizing) { try { recognition.stop(); setTimeout(() => { if (isRecognizing) recognition.start(); }, 250); } catch (e) {} }
 
-      const hasQ = text.includes("?") || /^(est-ce que|quel|quelle|combien|quand|où|comment|pourquoi|pouvez-vous|pourriez-vous)/i.test(text);
       let reply = "", hint = "", done = false;
-
       if (currentStage === "tache1") {
         if (turnIndex === 0) {
           reply = "Très bien, merci. Pouvez-vous me parler de votre expérience professionnelle et de vos motivations pour le Canada ?";
           hint = "考官追问：请补充工作经验与移民动机。";
         } else {
-          reply = "Parfait, passons à la Tâche 2 (Interaction). Posez-moi vos questions.";
+          reply = "Parfait, passons à la Tâche 2 (Interaction). Lisez la consigne et posez-moi vos questions.";
           hint = "Tâche 1 完成！已切换到 Tâche 2 情景发问。"; done = true;
         }
       } else if (currentStage === "tache2") {
         const remaining = (topic.keywords || []).filter(kw => !text.toLowerCase().includes(kw.toLowerCase()));
-        if (!hasQ && text.length > 5) {
-          reply = "N’oubliez pas que c’est à vous de me poser des questions ! Que souhaitez-vous savoir ?";
-          hint = "⚠️ Tâche 2 必须由你主动提问（用 Est-ce que / Quel / Combien 等）。";
-        } else if (turnIndex >= 4) {
+        if (turnIndex >= 4) {
           reply = "Merci pour vos questions précises. Passons à la Tâche 3.";
           hint = "Tâche 2 完成！已进入 Tâche 3 辩论。"; done = true;
         } else {
@@ -339,7 +339,7 @@
           hint = "🔥 考官反驳追问：请用 « Certes... mais / En revanche... » 让步反驳！";
         } else {
           reply = "Je vous remercie. L’épreuve d’expression orale est terminée.";
-          hint = "🎉 考试结束，正在生成报告..."; done = true;
+          hint = "🎉 考试结束，正在分析..."; done = true;
         }
       }
 
@@ -364,9 +364,174 @@
       }
     }
 
+    function blobToBase64(blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(String(reader.result).split(",")[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    }
+
+    async function gradeWithGeminiAudio(apiKey, audioBlob, topicsSummary) {
+      sysLog("INFO", "Sending audio to Gemini for real transcription & TCF grading...");
+      const base64Audio = await blobToBase64(audioBlob);
+      const prompt = `Tu es un examinateur officiel et strict du TCF Canada (Expression Orale).
+Voici l'enregistrement audio complet d'un candidat pour les sujets suivants: ${topicsSummary}.
+
+RÈGLES STRICTES (TRÈS IMPORTANT):
+1. Transcris EXACTEMENT ce que tu entends dans l'audio (même si c'est du silence, du bruit, du chinois, ou "la la la").
+2. Si l'audio ne contient PAS de français cohérent (ex: silence, "la la la", chinois, moins de 15 mots français), donne STRICTEMENT 0/20 partout, niveau "A0", NCLC 0, et explique honnêtement pourquoi. Ne donne JAMAIS une note inventée !
+3. Si le candidat parle français, note rigoureusement selon la grille officielle TCF Canada (0 à 20) et liste TOUTES les erreurs réelles de grammaire, conjugaison, genre, prépositions ou prononciation entendues.
+
+Retourne UNIQUEMENT un JSON valide avec cette structure exacte:
+{
+  "transcript": "transcription exacte de l'audio",
+  "overall_score": 0,
+  "cefr": "A0/A1/A2/B1/B2/C1/C2",
+  "nclc": 0,
+  "fluency": 0,
+  "lexical": 0,
+  "grammar": 0,
+  "task": 0,
+  "summary_zh": "中文详细点评（实事求是，指出真实表现）",
+  "grammar_issues": [
+    {"original": "考生原话错误片段", "correction": "地道法语纠正", "explanation": "中文语法解释"}
+  ]
+}`;
+
+      const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + encodeURIComponent(apiKey);
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{
+            parts: [
+              { text: prompt },
+              { inline_data: { mime_type: audioMimeType, data: base64Audio } }
+            ]
+          }],
+          generationConfig: { responseMimeType: "application/json" }
+        })
+      });
+      if (!res.ok) throw new Error("Gemini API HTTP " + res.status + ": " + (await res.text()).slice(0, 120));
+      const data = await res.json();
+      const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      return JSON.parse(rawText);
+    }
+
+    async function gradeWithOpenAIAudio(apiKey, audioBlob, topicsSummary) {
+      sysLog("INFO", "Sending audio to OpenAI Whisper + GPT-4o-mini...");
+      const form = new FormData();
+      form.append("file", audioBlob, "recording.webm");
+      form.append("model", "whisper-1");
+      const wRes = await fetch("https://api.openai.com/v1/audio/transcriptions", {
+        method: "POST",
+        headers: { Authorization: "Bearer " + apiKey },
+        body: form
+      });
+      if (!wRes.ok) throw new Error("Whisper HTTP " + wRes.status);
+      const wData = await wRes.json();
+      const transcript = (wData.text || "").trim();
+      sysLog("INFO", "Whisper transcribed", transcript.slice(0, 60));
+
+      const gRes = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: "Bearer " + apiKey },
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          response_format: { type: "json_object" },
+          messages: [
+            { role: "system", content: "Tu es un examinateur officiel et strict du TCF Canada. Si la transcription est vide, en chinois, ou 'la la la' (<15 mots français), donne 0/20 partout (cefr: A0, nclc: 0). Retourne un JSON strict: {transcript, overall_score, cefr, nclc, fluency, lexical, grammar, task, summary_zh, grammar_issues:[{original, correction, explanation}]}." },
+            { role: "user", content: "Sujets: " + topicsSummary + "\nTranscription Whisper: " + transcript }
+          ]
+        })
+      });
+      if (!gRes.ok) throw new Error("GPT HTTP " + gRes.status);
+      const gData = await gRes.json();
+      const parsed = JSON.parse(gData.choices?.[0]?.message?.content || "{}");
+      parsed.transcript = transcript;
+      return parsed;
+    }
+
+    function gradeStrictlyOffline(turns) {
+      const allText = turns.map(t => t.candidate_text).join(" ").trim();
+      const frenchCommon = /\b(je|tu|il|elle|nous|vous|ils|elles|le|la|les|un|une|des|est|suis|sont|avoir|être|pour|dans|avec|que|qui|pas|plus|très|mais|donc|bonjour|merci|canada|québec|travail|prix|horaires|pense|avis)\b/gi;
+      const words = allText ? allText.split(/\s+/).filter(Boolean) : [];
+      const frMatches = allText.match(frenchCommon) || [];
+
+      if (words.length < 10 || frMatches.length < 3) {
+        return {
+          transcript: allText || "（未检测到任何法语文字输入。纯离线模式无法直接听懂录音音频，请在上方填入 Gemini/OpenAI Key 开启真实听音转写，或在作答框输入法语。）",
+          overall_score: 0, cefr: "A0", nclc: 0, fluency: 0, lexical: 0, grammar: 0, task: 0,
+          summary_zh: "❌ 未检测到有效法语作答（有效法语词数: " + frMatches.length + "）。拒绝给出虚假保底分！如需直接分析你的录音音频，请在下方第 2 栏填入 Gemini 或 OpenAI Key。",
+          grammar_issues: [{ original: allText || "(空内容)", correction: "请使用法语完成 Tâche 1/2/3 对话作答", explanation: "系统已开启严格防作弊校验：无有效法语句子一律计 0 分。" }]
+        };
+      }
+
+      const rules = [
+        { regex: /\bje suis aller\b/gi, fix: () => "je suis allé(e)", exp: "复合过去时中 aller 必须用 être + 过去分词 allé(e)。" },
+        { regex: /\bj'ai allé\b/gi, fix: () => "je suis allé(e)", exp: "动词 aller 的复合过去时助动词是 être，不能用 avoir。" },
+        { regex: /\bj'ai venu\b/gi, fix: () => "je suis venu(e)", exp: "venir 的复合过去时助动词必须是 être。" },
+        { regex: /\bsi j'aurais\b|\bsi tu aurais\b/gi, fix: () => "si j'avais / si tu avais", exp: "Si 引导的条件从句不能直接用条件式，必须用未完成过去时 Imparfait。" },
+        { regex: /\bil faut que je (vais|peux|fais|suis|ai)\b/gi, fix: () => "il faut que j'aille / je puisse / je fasse / je sois / j'aie", exp: "il faut que 后面必须接虚拟式 (Subjonctif)。" },
+        { regex: /\bje veux que tu (vas|peux|fais|es|as)\b/gi, fix: () => "je veux que tu ailles / puisses / fasses / sois / aies", exp: "vouloir que 后面必须接虚拟式 (Subjonctif)。" },
+        { regex: /\bparce que de\b/gi, fix: () => "à cause de / grâce à", exp: "parce que 接完整句子；接名词必须用 à cause de 或 grâce à。" },
+        { regex: /\bdes bons\b|\bdes grands\b|\bdes petits\b|\bdes nouveaux\b/gi, fix: m => m.replace(/^des\s+/i, "de "), exp: "复数形容词位于复数名词前时，des 需变为 de。" },
+        { regex: /\bje suis d'accord avec vous que\b/gi, fix: () => "je suis d'accord avec vous sur le fait que", exp: "être d'accord 不能直接接 que 从句。" },
+        { regex: /\btrès beaucoup\b/gi, fix: () => "beaucoup (不要加 très)", exp: "法语中 beaucoup 前面绝对不能加 très。" },
+        { regex: /\bvisiter mon ami\b|\bvisiter mes amis\b/gi, fix: () => "rendre visite à mon ami(e)", exp: "拜访「人」要用 rendre visite à，visiter 只用于地点/景点。" },
+        { regex: /\bcombien de prix\b/gi, fix: () => "quel est le tarif / combien ça coûte", exp: "地道法语问价格用 Quel est le tarif 或 Combien ça coûte。" }
+      ];
+
+      const issues = [];
+      for (const r of rules) {
+        const m = allText.match(r.regex);
+        if (m) m.forEach(x => issues.push({ original: x, correction: r.fix(x), explanation: r.exp }));
+      }
+
+      const connectors = ["d'abord","ensuite","enfin","cependant","pourtant","en revanche","donc","à mon avis","selon moi","je pense que","en conclusion","par ailleurs","de plus"];
+      const usedC = connectors.filter(c => allText.toLowerCase().includes(c));
+      const totalSec = Math.max(15, turns.reduce((s, t) => s + (t.duration_sec || 15), 0));
+      const wpm = Math.round((words.length / totalSec) * 60);
+
+      const fluency = Math.min(18, Math.round(Math.min(words.length / 18, 12) + Math.min(wpm / 20, 6)));
+      const lexical = Math.min(18, Math.round(Math.min(frMatches.length / 5, 10) + usedC.length * 1.5));
+      const grammar = Math.max(2, Math.min(18, Math.round(12 + Math.min(words.length / 40, 4) - issues.length * 2.5)));
+      const task = Math.min(18, Math.round(turns.length * 2.5 + (words.length > 60 ? 5 : 2)));
+      const avg = Number(((fluency + lexical + grammar + task) / 4).toFixed(1));
+      const cefr = avg >= 16 ? "C1" : avg >= 12 ? "B2" : avg >= 9 ? "B1" : avg >= 5 ? "A2" : "A1";
+      const nclc = avg >= 16 ? 10 : avg >= 14 ? 9 : avg >= 12 ? 7 : avg >= 9 ? 6 : avg >= 5 ? 4 : 2;
+
+      return {
+        transcript: allText,
+        overall_score: avg, cefr, nclc, fluency, lexical, grammar, task,
+        summary_zh: "纯离线文本分析：共识别 " + words.length + " 词（有效法语高频词 " + frMatches.length + " 处，逻辑连接词 " + usedC.length + " 个），检出 " + issues.length + " 处典型语法错误。",
+        grammar_issues: issues.length ? issues : [{ original: "(未触发离线规则库报错)", correction: "如需深度逐句语法纠错（阴阳性/动词变位/虚拟式），请配置 AI 听音 Key。", explanation: "纯离线正则仅覆盖 12 类高频错误，无法替代大模型听音精批。" }]
+      };
+    }
+
+    function renderReport(rep, modeLabel) {
+      document.getElementById("reportPanel").style.display = "block";
+      document.getElementById("gradingModeBadge").innerText = modeLabel;
+      document.getElementById("overallHeadline").innerText = "预估成绩: " + rep.overall_score + " / 20 (Niveau " + rep.cefr + " — NCLC " + rep.nclc + ")";
+      document.getElementById("examinerSummary").innerText = rep.summary_zh || "";
+      document.getElementById("scFluency").innerText = rep.fluency + " / 20";
+      document.getElementById("scLexical").innerText = rep.lexical + " / 20";
+      document.getElementById("scGrammar").innerText = rep.grammar + " / 20";
+      document.getElementById("scTask").innerText = rep.task + " / 20";
+      document.getElementById("transcriptOutput").innerText = rep.transcript || "（空）";
+      const list = Array.isArray(rep.grammar_issues) && rep.grammar_issues.length ? rep.grammar_issues : [{ original: "无", correction: "—", explanation: "未检出明显错误" }];
+      document.getElementById("grammarList").innerHTML = list.map(g =>
+        '<div class="issue-item"><div><span style="color:#f87171;text-decoration:line-through;">' + g.original + '</span> ➡️ <b style="color:#4ade80;">' + g.correction + '</b></div><div style="color:#cbd5e1;margin-top:4px;font-size:12px;">' + g.explanation + '</div></div>'
+      ).join("");
+      document.getElementById("reportPanel").scrollIntoView({ behavior: "smooth" });
+    }
+
     async function finishExamAndAnalyze() {
       clearInterval(timerInterval);
-      if (recognition && isRecognizing) { try { recognition.stop(); } catch (e) {} isRecognizing = false; }
+      document.getElementById("btnFinish").disabled = true;
+      document.getElementById("btnNext").disabled = true;
 
       const leftover = document.getElementById("candidateInput").value.trim();
       if (leftover) {
@@ -375,60 +540,45 @@
         document.getElementById("candidateInput").value = "";
       }
 
+      let audioBlob = null;
       if (mediaRecorder && mediaRecorder.state !== "inactive") {
         await new Promise(resolve => { mediaRecorder.onstop = resolve; mediaRecorder.stop(); });
-        document.getElementById("recStatus").innerText = "✅ 本场录音已生成";
-        document.getElementById("audioPlayback").src = URL.createObjectURL(new Blob(audioChunks, { type: "audio/webm" }));
+        audioBlob = new Blob(audioChunks, { type: audioMimeType });
+        document.getElementById("recStatus").innerText = "✅ 录音完成 (" + Math.round(audioBlob.size / 1024) + " KB)";
+        document.getElementById("audioPlayback").src = URL.createObjectURL(audioBlob);
+        sysLog("INFO", "Audio finalized", Math.round(audioBlob.size / 1024) + " KB");
       }
 
-      const connectors = ["d'abord","ensuite","enfin","cependant","pourtant","en revanche","donc","à mon avis","selon moi","je pense que","en conclusion"];
-      const rules = [
-        { regex: /\bje suis aller\b/gi, fix: () => "je suis allé(e)", exp: "复合过去时中 aller 需用助动词 être，过去分词为 allé(e)。", sev: "MAJOR" },
-        { regex: /\bj'ai allé\b/gi, fix: () => "je suis allé(e)", exp: "aller 在复合过去时中必须搭配 être。", sev: "MAJOR" },
-        { regex: /\bsi j'aurais\b/gi, fix: () => "si j'avais", exp: "Si 从句不能直接用条件式，应使用未完成过去时。", sev: "MAJOR" }
-      ];
+      const apiKey = (localStorage.getItem(API_KEY_STORAGE) || document.getElementById("aiApiKey").value || "").trim();
+      const t2 = visibleBank.tache2[document.getElementById("t2Select").value]?.prompt || "";
+      const t3 = visibleBank.tache3[document.getElementById("t3Select").value]?.prompt || "";
+      const topicsSummary = "Tâche 2: " + t2 + " | Tâche 3: " + t3;
 
-      const allText = transcriptHistory.map(t => t.candidate_text).join(" ").trim();
-      const totalWords = allText ? allText.split(/\s+/).filter(Boolean).length : 0;
-      const totalSec = Math.max(10, transcriptHistory.reduce((s, t) => s + (t.duration_sec || 15), 0));
-      const wpm = Math.round((totalWords / totalSec) * 60);
-      const usedC = connectors.filter(c => allText.toLowerCase().includes(c));
-      const qCount = transcriptHistory.filter(t => t.tache === "tache2" && (t.candidate_text.includes("?") || /\b(est-ce que|quel|combien|comment|où|quand)\b/i.test(t.candidate_text))).length;
-
-      const issues = [];
-      for (const t of transcriptHistory) {
-        for (const r of rules) {
-          const m = t.candidate_text.match(r.regex);
-          if (m) m.forEach(x => issues.push({ original: x, correction: r.fix(x), explanation: r.exp, severity: r.sev }));
+      if (apiKey && audioBlob && audioBlob.size > 1000) {
+        document.getElementById("recStatus").innerText = "⏳ AI 正在听取你的录音并逐句纠错...";
+        try {
+          const rep = apiKey.startsWith("AIza")
+            ? await gradeWithGeminiAudio(apiKey, audioBlob, topicsSummary)
+            : await gradeWithOpenAIAudio(apiKey, audioBlob, topicsSummary);
+          sysLog("INFO", "AI Audio Grading Complete", rep.cefr + " / NCLC " + rep.nclc);
+          document.getElementById("recStatus").innerText = "✅ AI 听音评分完成";
+          renderReport(rep, "🤖 评分引擎: 真实录音直传 " + (apiKey.startsWith("AIza") ? "Gemini 2.5 Flash" : "OpenAI Whisper + GPT-4o-mini"));
+          return;
+        } catch (e) {
+          sysLog("ERR", "AI Audio Grading Failed", e.message);
+          alert("AI 听音评分请求失败（" + e.message + "），已自动回退到严格离线校验模式。");
         }
       }
 
-      const fluency = Math.min(19, Math.max(6, Math.round(8 + Math.min(totalWords / 35, 7) + Math.min(wpm / 25, 4))));
-      const lexical = Math.min(19, Math.max(6, Math.round(7 + usedC.length * 1.4 + (totalWords > 180 ? 3 : 1))));
-      const grammar = Math.min(19, Math.max(5, 16 - issues.length * 2));
-      const task = Math.min(19, Math.max(6, Math.round(8 + Math.min(qCount * 2, 6) + (transcriptHistory.length >= 5 ? 4 : 2))));
-      const avg = Number(((fluency + lexical + grammar + task) / 4).toFixed(1));
-      const cefr = avg >= 16 ? "C1" : avg >= 12 ? "B2" : avg >= 9 ? "B1" : "A2";
-      const nclc = avg >= 16 ? 10 : avg >= 14 ? 9 : avg >= 12 ? 7 : avg >= 9 ? 6 : 4;
-
-      document.getElementById("reportPanel").style.display = "block";
-      document.getElementById("overallHeadline").innerText = "预估成绩: " + avg + " / 20 (Niveau " + cefr + " — NCLC " + nclc + ")";
-      document.getElementById("examinerSummary").innerText = "本场共 " + transcriptHistory.length + " 轮问答，产出 " + totalWords + " 词（" + wpm + " 词/分），T2 提问 " + qCount + " 次，连接词 " + usedC.length + " 个。";
-      document.getElementById("scFluency").innerText = fluency + " / 20";
-      document.getElementById("scLexical").innerText = lexical + " / 20";
-      document.getElementById("scGrammar").innerText = grammar + " / 20";
-      document.getElementById("scTask").innerText = task + " / 20";
-
-      const list = issues.length ? issues : [{ original: "(整体句法稳定)", correction: "建议在 Tâche 3 中加入虚拟式 (Bien que cela soit...) 冲击 NCLC 9-10。", explanation: "未检测到常见基础语法错误。" }];
-      document.getElementById("grammarList").innerHTML = list.map(g =>
-        '<div class="issue-item"><div><span style="color:#f87171;text-decoration:line-through;">' + g.original + '</span> ➡️ <b style="color:#4ade80;">' + g.correction + '</b></div><div style="color:#cbd5e1;margin-top:4px;font-size:12px;">' + g.explanation + '</div></div>'
-      ).join("");
-      sysLog("INFO", "Graded", cefr + " / NCLC " + nclc);
-      document.getElementById("reportPanel").scrollIntoView({ behavior: "smooth" });
+      const offlineRep = gradeStrictlyOffline(transcriptHistory);
+      sysLog("INFO", "Strict Offline Graded", offlineRep.cefr + " / NCLC " + offlineRep.nclc);
+      renderReport(offlineRep, "💻 评分引擎: 严格本地离线文本校验（未配置 AI 听音 Key）");
     }
 
     async function boot() {
-      sysLog("INFO", "Booting Offline Studio v1.0.5");
+      sysLog("INFO", "Booting Offline Studio v1.0.6");
+      const savedKey = localStorage.getItem(API_KEY_STORAGE);
+      if (savedKey) document.getElementById("aiApiKey").value = savedKey;
       try {
         const res = await fetch("./question-bank.json");
         if (!res.ok) throw new Error("HTTP " + res.status);
