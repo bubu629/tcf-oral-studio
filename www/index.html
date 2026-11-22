@@ -382,7 +382,7 @@ Tâche:
 1. Écoute attentivement l'audio (ou lis le texte tapé) du candidat et transcris EXACTEMENT ce qu'il a dit dans "user_transcript".
 2. Réponds-lui NATURELLEMENT en français comme un vrai examinateur/interlocuteur humain dans "examiner_reply_fr" (2 à 3 phrases max):
    - En Tâche 1: réagis à ce qu'il vient de dire et pose une question de suivi naturelle (après 2 tours, propose de passer à la Tâche 2 et mets should_advance_stage=true).
-   - En Tâche 2: réponds précisément à SA question dans ton rôle (${topic.role || "interlocuteur"}) avec des détails réalistes, puis invite-le à poser d'autres questions (après 4-5 tours, mets should_advance_stage=true).
+   - En Tâche 2: réponds BRIÈVEMENT et directement à la question du candidat dans ton rôle (${topic.role || "interlocuteur"}) en 1 ou 2 phrases courtes maximum. INTERDICTION ABSOLUE de poser une question ou de demander s'il a d'autres questions (n'utilise aucun point d'interrogation '?'). Après 4-5 tours, conclus brièvement sans question et mets should_advance_stage=true.
    - En Tâche 3: réagis à SON argument et oppose-lui une contre-argumentation stimulante (après 2 tours, conclus l'examen et mets should_advance_stage=true).
    - Si le candidat n'a rien dit d'intelligible (silence, chinois, "la la la"), demande-lui poliment en français de répéter sa réponse en français et mets should_advance_stage=false.
 3. Donne un bref conseil en chinois dans "hint_zh".
@@ -426,7 +426,7 @@ Retourne UNIQUEMENT un JSON valide:
       const apiKey = (localStorage.getItem(API_KEY_STORAGE) || document.getElementById("aiApiKey").value || "").trim();
       const topic = getActiveTopic();
 
-      if (!(((apiKey.startsWith("AIza") || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ."))) {
+      if (!((((apiKey.startsWith("AIza") || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ."))) {
         btnNext.disabled = false;
         alert("请先在下方第 2 栏填入你的 Gemini API Key (AIza...) 并保存，才能开启真人实时语音对话互动！");
         await startTurnRecording();
@@ -495,7 +495,7 @@ Retourne UNIQUEMENT un JSON valide:
       const apiKey = (localStorage.getItem(API_KEY_STORAGE) || document.getElementById("aiApiKey").value || "").trim();
       const fullTranscript = transcriptHistory.map(t => "[" + t.tache.toUpperCase() + "] " + t.candidate_text).join("\n");
 
-      if (!fullTranscript.trim() || !(((apiKey.startsWith("AIza") || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ."))) {
+      if (!fullTranscript.trim() || !((((apiKey.startsWith("AIza") || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ."))) {
         document.getElementById("reportPanel").style.display = "block";
         document.getElementById("overallHeadline").innerText = "预估成绩: 0 / 20 (Niveau A0 — NCLC 0)";
         document.getElementById("examinerSummary").innerText = "❌ 未检测到有效法语对话记录（或未配置 Gemini API Key）。";
