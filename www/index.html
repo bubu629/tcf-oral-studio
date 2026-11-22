@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>TCF Canada Oral Studio v1.0.7</title>
+  <title>TCF Canada Oral Studio v1.0.10</title>
   <style>
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
@@ -371,6 +371,38 @@
       });
     }
 
+    
+    const GEMINI_MODELS = [
+      "gemini-3.5-flash-lite",
+      "gemini-3.5-flash",
+      "gemini-3.6-flash",
+      "gemini-3.7-flash",
+      "gemini-3.8-flash"
+    ];
+
+    async function fetchGeminiJson(apiKey, bodyObj) {
+      let lastErr = "Gemini HTTP 429";
+      for (const model of GEMINI_MODELS) {
+        const url = "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent?key=" + encodeURIComponent(apiKey);
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(bodyObj)
+        });
+        if (res.ok) {
+          const data = await res.json();
+          return JSON.parse(data.candidates?.[0]?.content?.parts?.[0]?.text || "{}");
+        }
+        lastErr = "Gemini HTTP " + res.status + " (" + model + ")";
+        if (res.status === 429 || res.status === 404 || res.status === 503) {
+          sysLog("WARN", model + " returned " + res.status + ", switching model...");
+          continue;
+        }
+        throw new Error(lastErr);
+      }
+      throw new Error(lastErr);
+    }
+
     async function interactWithGeminiTurn(apiKey, audioBlob, typedText, stage, topic, turnIdx) {
       const parts = [];
       const historyText = transcriptHistory.slice(-4).map(h => "Examinateur: " + h.examiner_prompt + "\nCandidat: " + h.candidate_text).join("\n---\n");
@@ -399,18 +431,7 @@ Retourne UNIQUEMENT un JSON valide:
         parts.push({ inline_data: { mime_type: audioMimeType, data: b64 } });
       }
 
-      const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=" + encodeURIComponent(apiKey);
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ parts }],
-          generationConfig: { responseMimeType: "application/json" }
-        })
-      });
-      if (!res.ok) throw new Error("Gemini HTTP " + res.status);
-      const data = await res.json();
-      return JSON.parse(data.candidates?.[0]?.content?.parts?.[0]?.text || "{}");
+      return await fetchGeminiJson(apiKey, { contents: [{ parts }], generationConfig: { responseMimeType: "application/json" } });
     }
 
     async function submitTurnAndNext() {
@@ -523,18 +544,7 @@ RÈGLES STRICTES:
 Retourne UNIQUEMENT un JSON valide:
 {"overall_score":0,"cefr":"A0/A1/A2/B1/B2/C1/C2","nclc":0,"fluency":0,"lexical":0,"grammar":0,"task":0,"summary_zh":"中文总评","grammar_issues":[{"original":"原句错误","correction":"地道纠正","explanation":"中文解释"}]}`;
 
-        const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=" + encodeURIComponent(apiKey);
-        const res = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { responseMimeType: "application/json" }
-          })
-        });
-        if (!res.ok) throw new Error("Gemini HTTP " + res.status);
-        const data = await res.json();
-        const rep = JSON.parse(data.candidates?.[0]?.content?.parts?.[0]?.text || "{}");
+        const rep = await fetchGeminiJson(apiKey, { contents: [{ parts: [{ text: prompt }] }], generationConfig: { responseMimeType: "application/json" } });
 
         document.getElementById("reportPanel").style.display = "block";
         document.getElementById("gradingModeBadge").innerText = "🤖 评分引擎: Gemini 2.5 Flash 实时听音对话全纪录精批";
@@ -560,7 +570,7 @@ Retourne UNIQUEMENT un JSON valide:
     }
 
     async function boot() {
-      sysLog("INFO", "Booting Live Voice Studio v1.0.7");
+      sysLog("INFO", "Booting Live Voice Studio v1.0.10");
       const hasNativeTTS = !!(window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.TextToSpeech);
       sysLog("INFO", "Android Native TTS Plugin: " + (hasNativeTTS ? "Available ✅" : "Web Fallback"));
       const savedKey = localStorage.getItem(API_KEY_STORAGE);
