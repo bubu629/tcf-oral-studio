@@ -396,7 +396,7 @@ Retourne UNIQUEMENT un JSON valide:
         parts.push({ inline_data: { mime_type: audioMimeType, data: b64 } });
       }
 
-      const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + encodeURIComponent(apiKey);
+      const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=" + encodeURIComponent(apiKey);
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -426,7 +426,7 @@ Retourne UNIQUEMENT un JSON valide:
       const apiKey = (localStorage.getItem(API_KEY_STORAGE) || document.getElementById("aiApiKey").value || "").trim();
       const topic = getActiveTopic();
 
-      if (!((apiKey.startsWith("AIza") || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ."))) {
+      if (!(((apiKey.startsWith("AIza") || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ."))) {
         btnNext.disabled = false;
         alert("请先在下方第 2 栏填入你的 Gemini API Key (AIza...) 并保存，才能开启真人实时语音对话互动！");
         await startTurnRecording();
@@ -495,7 +495,7 @@ Retourne UNIQUEMENT un JSON valide:
       const apiKey = (localStorage.getItem(API_KEY_STORAGE) || document.getElementById("aiApiKey").value || "").trim();
       const fullTranscript = transcriptHistory.map(t => "[" + t.tache.toUpperCase() + "] " + t.candidate_text).join("\n");
 
-      if (!fullTranscript.trim() || !((apiKey.startsWith("AIza") || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ."))) {
+      if (!fullTranscript.trim() || !(((apiKey.startsWith("AIza") || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ.")) || apiKey.startsWith("AQ."))) {
         document.getElementById("reportPanel").style.display = "block";
         document.getElementById("overallHeadline").innerText = "预估成绩: 0 / 20 (Niveau A0 — NCLC 0)";
         document.getElementById("examinerSummary").innerText = "❌ 未检测到有效法语对话记录（或未配置 Gemini API Key）。";
@@ -516,7 +516,7 @@ RÈGLES STRICTES:
 Retourne UNIQUEMENT un JSON valide:
 {"overall_score":0,"cefr":"A0/A1/A2/B1/B2/C1/C2","nclc":0,"fluency":0,"lexical":0,"grammar":0,"task":0,"summary_zh":"中文总评","grammar_issues":[{"original":"原句错误","correction":"地道纠正","explanation":"中文解释"}]}`;
 
-        const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + encodeURIComponent(apiKey);
+        const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=" + encodeURIComponent(apiKey);
         const res = await fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
