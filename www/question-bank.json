@@ -1,0 +1,1683 @@
+{
+  "tache1": [
+    {
+      "id": "T1-01",
+      "category": "Entretien dirigé (自我介绍与日常问答)",
+      "role": "Examinateur TCF Canada",
+      "prompt": "Bonjour, installez-vous. Pouvez-vous vous présenter en quelques minutes ? Parlez-moi de votre parcours, de votre profession et des raisons pour lesquelles vous souhaitez immigrer au Canada.",
+      "keywords": [
+        "présentation",
+        "travail",
+        "études",
+        "Canada",
+        "immigration",
+        "loisirs"
+      ],
+      "follow_ups": [
+        "Qu'est-ce qui vous attire particulièrement au Canada ou au Québec ?",
+        "Comment décririez-vous une journée typique dans votre travail actuel ?",
+        "Quels sont vos projets professionnels une fois installé(e) au Canada ?"
+      ]
+    }
+  ],
+  "tache2": [
+    {
+      "id": "T2-01-01",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "ami(e) francophone",
+      "prompt": "Je suis un(e) ami(e) francophone. Vous voulez choisir un endroit pour voyager et souhaitez connaître les pays que j’ai visités. Vous me posez des questions pour en savoir plus (activités, météo, prix, etc.).",
+      "keywords": [
+        "destination",
+        "activités",
+        "météo",
+        "prix",
+        "hébergement",
+        "transport"
+      ]
+    },
+    {
+      "id": "T2-01-02",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e) et je participe régulièrement à des voyages organisés. Vous voulez essayer ce type de vacances. Vous me demandez des conseils pour préparer votre voyage (destination, budget, activités, etc.).",
+      "keywords": [
+        "destination",
+        "budget",
+        "activités",
+        "organisateur",
+        "réservation"
+      ]
+    },
+    {
+      "id": "T2-01-03",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e) et vous venez d’arriver dans ma ville. Vous voulez profiter de votre week-end et vous me posez des questions pour découvrir les endroits (quartiers vivants, activités à faire, lieux à visiter, etc.).",
+      "keywords": [
+        "quartiers",
+        "activités",
+        "lieux",
+        "transport",
+        "restaurants"
+      ]
+    },
+    {
+      "id": "T2-01-04",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e). Vous avez envie de passer un week-end dans une ville que je connais bien. Afin de préparer votre séjour, vous me demandez des informations sur cette ville (lieux à visiter, climat, activités, hébergement, etc.).",
+      "keywords": [
+        "lieux",
+        "climat",
+        "activités",
+        "hébergement",
+        "prix"
+      ]
+    },
+    {
+      "id": "T2-01-05",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "agence voyages",
+      "prompt": "Je travaille dans une agence de voyages qui propose des séjours pour apprendre des langues. Vous souhaitez en savoir plus et vous me posez des questions pour vous renseigner (lieux, tarifs, organisateurs).",
+      "keywords": [
+        "lieux",
+        "tarifs",
+        "organisateurs",
+        "hébergement",
+        "niveaux"
+      ]
+    },
+    {
+      "id": "T2-01-06",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "agence voyages",
+      "prompt": "Je suis employé(e) dans une agence de voyages spécialisée dans les excursions d’une journée. Vous souhaitez en savoir plus et vous me demandez des précisions (prix, programme, destinations, etc.).",
+      "keywords": [
+        "prix",
+        "programme",
+        "destinations",
+        "horaires",
+        "réservation"
+      ]
+    },
+    {
+      "id": "T2-01-07",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "employé(e) musée",
+      "prompt": "Je suis employé(e) à la réception d’un musée. Vous voulez organiser une visite en famille et vous me demandez des précisions (horaires, expositions, tarifs, etc.).",
+      "keywords": [
+        "horaires",
+        "expositions",
+        "tarifs",
+        "réductions",
+        "visite guidée"
+      ]
+    },
+    {
+      "id": "T2-01-08",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "office tourisme",
+      "prompt": "Vous avez l’intention de découvrir une région du Québec. Vous venez à l’office du tourisme pour vous informer sur les options d’hébergement (catégories, localisation, tarifs, etc.). Je suis la personne qui vous renseigne.",
+      "keywords": [
+        "catégories",
+        "localisation",
+        "tarifs",
+        "réservation",
+        "transport"
+      ]
+    },
+    {
+      "id": "T2-01-09",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "office tourisme",
+      "prompt": "Je suis employé(e) à l’office de tourisme canadien. Vous voulez passer un week-end relaxant et vous me demandez des recommandations (sorties, endroits à découvrir, déplacements, etc.).",
+      "keywords": [
+        "sorties",
+        "endroits",
+        "déplacements",
+        "prix",
+        "hébergement"
+      ]
+    },
+    {
+      "id": "T2-01-10",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "agence voyages",
+      "prompt": "Je suis employé(e) dans une agence de voyages. Vous voulez planifier vos vacances et vous me demandez des informations (coût, destinations, activités, etc.).",
+      "keywords": [
+        "coût",
+        "destinations",
+        "activités",
+        "saison",
+        "assurance"
+      ]
+    },
+    {
+      "id": "T2-01-11",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "employé(e) restaurant",
+      "prompt": "Je suis employé(e) dans un restaurant. Vous voulez préparer un dîner avec vos collègues. Vous me posez des questions sur le lieu (menu, prix, ambiance, etc.).",
+      "keywords": [
+        "menu",
+        "prix",
+        "ambiance",
+        "réservation",
+        "allergies"
+      ]
+    },
+    {
+      "id": "T2-01-12",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e) et j’habite au Canada depuis longtemps. Vous prévoyez de me rendre visite au mois de décembre. Vous me demandez des informations pour organiser votre voyage et vos bagages (climat, températures, habits, activités possibles, etc.).",
+      "keywords": [
+        "climat",
+        "températures",
+        "habits",
+        "activités",
+        "transport"
+      ]
+    },
+    {
+      "id": "T2-01-13",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "agence voyage",
+      "prompt": "Je suis employé(e) dans une agence de voyage. Vous allez voyager au Canada en avion et vous me demandez des informations sur le voyage (enregistrement, bagages, embarquement, services à bord, etc.).",
+      "keywords": [
+        "enregistrement",
+        "bagages",
+        "embarquement",
+        "services",
+        "documents"
+      ]
+    },
+    {
+      "id": "T2-01-14",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "agence voyages",
+      "prompt": "Je suis employé(e) dans une agence de voyages. Vous avez remporté un voyage à la suite d’un concours et vous devez choisir votre destination entre Montréal, Dakar, Bruxelles ou Hanoï. Vous me posez des questions sur ces villes (météo, activités, budget, etc.) pour vous décider.",
+      "keywords": [
+        "météo",
+        "activités",
+        "budget",
+        "durée",
+        "hébergement"
+      ]
+    },
+    {
+      "id": "T2-01-15",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "organisateur festival",
+      "prompt": "J’organise un festival de cinéma francophone. Vous êtes en vacances dans ma ville où nous nous sommes croisés. Vous me demandez des informations sur le festival pour savoir si vous allez y assister (dates, programme, horaires, tarifs, etc.).",
+      "keywords": [
+        "dates",
+        "programme",
+        "horaires",
+        "tarifs",
+        "lieu"
+      ]
+    },
+    {
+      "id": "T2-01-16",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "ami(e)",
+      "prompt": "Je suis votre ami(e) et je vous invite à assister à un concert avec moi. Vous souhaitez en savoir plus et vous me posez des questions sur le concert (genre de musique, endroit, date, etc.).",
+      "keywords": [
+        "genre",
+        "endroit",
+        "date",
+        "prix",
+        "transport"
+      ]
+    },
+    {
+      "id": "T2-01-17",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "collègue",
+      "prompt": "Je suis votre collègue de travail. Vous venez d’arriver à Toronto. Vous voulez organiser votre anniversaire dans un bon restaurant. Vous me posez des questions concernant les restaurants en ville (style culinaire, prix, ambiance, etc.).",
+      "keywords": [
+        "style",
+        "prix",
+        "ambiance",
+        "quartier",
+        "réservation"
+      ]
+    },
+    {
+      "id": "T2-01-19",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "bureau tourisme",
+      "prompt": "Je travaille dans un bureau de tourisme au Québec. Vous voulez visiter un parc à thème (aquarium, zoo, réserve naturelle, etc.). Vous me posez des questions pour avoir des informations (horaires, prix, restaurants, etc.).",
+      "keywords": [
+        "horaires",
+        "prix",
+        "restaurants",
+        "accès",
+        "activités"
+      ]
+    },
+    {
+      "id": "T2-01-20",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "agence location",
+      "prompt": "Je suis employé(e) dans une agence de location de voitures au Québec. Vous voulez louer une voiture pour vos vacances. Vous me posez des questions pour obtenir des informations (prix, conditions de location, documents nécessaires, etc.).",
+      "keywords": [
+        "prix",
+        "conditions",
+        "documents",
+        "assurance",
+        "kilométrage"
+      ]
+    },
+    {
+      "id": "T2-01-21",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "réception musée",
+      "prompt": "Je suis à la réception d’un musée. Vous voulez venir le découvrir avec vos amis. Vous me demandez des informations pour préparer la visite (horaires, tarifs, visites guidées, etc.).",
+      "keywords": [
+        "horaires",
+        "tarifs",
+        "visites guidées",
+        "groupes",
+        "accès"
+      ]
+    },
+    {
+      "id": "T2-01-22",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "collègue",
+      "prompt": "Nous travaillons ensemble. Vous voulez organiser un week-end et je vous recommande une ville que je connais. Vous me demandez des informations (logement, restaurants, sites à découvrir, etc.).",
+      "keywords": [
+        "logement",
+        "restaurants",
+        "sites",
+        "transport",
+        "budget"
+      ]
+    },
+    {
+      "id": "T2-01-23",
+      "category": "1️⃣ 出去玩/旅游类",
+      "role": "ami(e)",
+      "prompt": "Vous souhaitez faire une sortie ce soir, mais vous ne savez pas encore quoi faire. Nous en discutons entre amis et vous me posez des questions pour choisir une activité (endroit, transport, prix, etc.).",
+      "keywords": [
+        "endroit",
+        "transport",
+        "prix",
+        "horaire",
+        "ambiance"
+      ]
+    },
+    {
+      "id": "T2-02-01",
+      "category": "2️⃣ 课程/学习类",
+      "role": "ami(e) canadien(ne)",
+      "prompt": "Je suis un(e) ami(e) canadien(ne) et je participe à une activité artistique (danse, musique, théâtre, etc.). Vous êtes intéressé(e) et aimeriez la pratiquer aussi. Vous me demandez des renseignements (lieu, intérêt, horaires, etc.).",
+      "keywords": [
+        "lieu",
+        "intérêt",
+        "horaires",
+        "prix",
+        "inscription"
+      ]
+    },
+    {
+      "id": "T2-02-02",
+      "category": "2️⃣ 课程/学习类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e). J’apprends des cours de dessin dans une école. Vous souhaitez en savoir plus et vous me posez des questions pour obtenir des informations (prix, l’école, enseignants, horaires, etc.).",
+      "keywords": [
+        "prix",
+        "école",
+        "enseignants",
+        "horaires",
+        "matériel"
+      ]
+    },
+    {
+      "id": "T2-02-03",
+      "category": "2️⃣ 课程/学习类",
+      "role": "collègue",
+      "prompt": "Je suis votre collègue de travail. J’aimerais trouver un partenaire pour faire du sport. Vous êtes curieux(se) et vous me demandez des précisions sur ce sport (genre d’activité, heures, niveau, etc.).",
+      "keywords": [
+        "activité",
+        "heures",
+        "niveau",
+        "lieu",
+        "équipement"
+      ]
+    },
+    {
+      "id": "T2-02-04",
+      "category": "2️⃣ 课程/学习类",
+      "role": "voisin(e)",
+      "prompt": "Je suis un(e) voisin(e) et j’enseigne le piano dans une école de musique du quartier. Vous souhaitez prendre des cours et vous me demandez des informations sur l’établissement (types de cours, prix, horaires, etc.).",
+      "keywords": [
+        "types",
+        "prix",
+        "horaires",
+        "niveaux",
+        "essai"
+      ]
+    },
+    {
+      "id": "T2-02-05",
+      "category": "2️⃣ 课程/学习类",
+      "role": "voisin(e)",
+      "prompt": "Je suis un(e) voisin(e) et j’anime des activités sportives dans une association du quartier. Vous voulez rejoindre mes séances et vous me demandez des informations sur les entraînements (conditions, discipline, horaires, etc.).",
+      "keywords": [
+        "conditions",
+        "discipline",
+        "horaires",
+        "tarifs",
+        "certificat"
+      ]
+    },
+    {
+      "id": "T2-02-06",
+      "category": "2️⃣ 课程/学习类",
+      "role": "parent école",
+      "prompt": "Je suis parent d’un enfant de l’école. Vous cherchez une activité pour vos enfants après les cours. Vous me demandez des précisions sur les options disponibles près de l’école (type d’activité, prix, horaires, encadrement, etc.).",
+      "keywords": [
+        "activité",
+        "prix",
+        "horaires",
+        "encadrement",
+        "inscription"
+      ]
+    },
+    {
+      "id": "T2-02-07",
+      "category": "2️⃣ 课程/学习类",
+      "role": "employé(e) club sport",
+      "prompt": "Je suis employé(e) dans un club de sport. Vous souhaitez vous inscrire à une activité physique. Vous me demandez des renseignements pour faire votre choix (sports disponibles, horaires, coût, etc.).",
+      "keywords": [
+        "sports",
+        "horaires",
+        "coût",
+        "abonnement",
+        "essai"
+      ]
+    },
+    {
+      "id": "T2-02-08",
+      "category": "2️⃣ 课程/学习类",
+      "role": "voisin(e)",
+      "prompt": "Je suis un(e) voisin(e) et je pratique la natation toutes les semaines. Vous souhaitez en savoir plus et vous me demandez des informations sur la piscine où je vais (horaires, prix, équipements, etc.).",
+      "keywords": [
+        "horaires",
+        "prix",
+        "équipements",
+        "cours",
+        "accès"
+      ]
+    },
+    {
+      "id": "T2-02-09",
+      "category": "2️⃣ 课程/学习类",
+      "role": "accueil centre loisirs",
+      "prompt": "Je suis chargé(e) de l’accueil dans un centre de loisirs. Vous voulez vous inscrire à une activité (sport, dessin, sculpture, etc.). Vous me demandez des informations sur les cours proposés (tarifs, heures, matériel à prévoir, etc.).",
+      "keywords": [
+        "tarifs",
+        "heures",
+        "matériel",
+        "inscription",
+        "niveaux"
+      ]
+    },
+    {
+      "id": "T2-02-10",
+      "category": "2️⃣ 课程/学习类",
+      "role": "ami(e)",
+      "prompt": "Je suis votre ami(e). J’ai participé à un atelier de cuisine. Vous êtes intéressé(e) à y assister. Vous me demandez des informations sur cet atelier (tarifs, horaires, programme, etc.).",
+      "keywords": [
+        "tarifs",
+        "horaires",
+        "programme",
+        "ingrédients",
+        "niveau"
+      ]
+    },
+    {
+      "id": "T2-02-13",
+      "category": "2️⃣ 课程/学习类",
+      "role": "réception club sport",
+      "prompt": "Je suis à la réception du club de sport près de chez vous. Vous souhaitez pratiquer une activité mais vous n’avez pas encore choisi. Vous me demandez des informations sur les sports disponibles (horaires, tarifs, équipement, etc.).",
+      "keywords": [
+        "sports",
+        "horaires",
+        "tarifs",
+        "équipement",
+        "inscription"
+      ]
+    },
+    {
+      "id": "T2-02-14",
+      "category": "2️⃣ 课程/学习类",
+      "role": "enseignant français",
+      "prompt": "Je suis votre enseignant de français. Notre école de langues met en place un jeu pour les étudiants. Vous me demandez des informations pour en savoir davantage sur son organisation (règles, prix, modalités, etc.).",
+      "keywords": [
+        "règles",
+        "prix",
+        "modalités",
+        "date",
+        "équipes"
+      ]
+    },
+    {
+      "id": "T2-03-01",
+      "category": "3️⃣ 工作/职业类",
+      "role": "nouveau collègue",
+      "prompt": "Je suis un(e) nouveau collègue. J’ai habité au Québec et je travaille actuellement ici. Vous me posez des questions sur mon expérience professionnelle (études, premiers emplois, expérience à l’étranger, difficultés, etc.).",
+      "keywords": [
+        "études",
+        "emplois",
+        "expérience",
+        "difficultés",
+        "Québec"
+      ]
+    },
+    {
+      "id": "T2-03-02",
+      "category": "3️⃣ 工作/职业类",
+      "role": "ancien(ne) collègue",
+      "prompt": "Je suis un(e) ancien(ne) collègue et j’ai récemment commencé un nouvel emploi. Vous envisagez de changer de travail et vous me demandez des informations sur ma société (tâches, environnement, avantages, etc.).",
+      "keywords": [
+        "tâches",
+        "environnement",
+        "avantages",
+        "salaire",
+        "recrutement"
+      ]
+    },
+    {
+      "id": "T2-03-03",
+      "category": "3️⃣ 工作/职业类",
+      "role": "collègue",
+      "prompt": "Je suis un(e) collègue. J’envisage de changer de service au sein de l’entreprise. Vous me demandez des informations pour savoir ce qui motive ce changement (tâches, horaires, ambiance, collègues, etc.).",
+      "keywords": [
+        "tâches",
+        "horaires",
+        "ambiance",
+        "collègues",
+        "évolution"
+      ]
+    },
+    {
+      "id": "T2-03-04",
+      "category": "3️⃣ 工作/职业类",
+      "role": "annonceur",
+      "prompt": "J’ai mis une annonce car j’ai besoin de quelqu’un pour accompagner mes enfants à l’école. Vous avez répondu et nous avons un rendez-vous. Vous me demandez des informations sur le poste (horaires, école, responsabilités, etc.).",
+      "keywords": [
+        "horaires",
+        "école",
+        "responsabilités",
+        "salaire",
+        "transport"
+      ]
+    },
+    {
+      "id": "T2-03-05",
+      "category": "3️⃣ 工作/职业类",
+      "role": "collègue",
+      "prompt": "Je suis votre collègue. Vous venez d’intégrer l’entreprise et vous voulez mieux la connaître. Vous souhaitez obtenir des détails sur l’organisation, l’ambiance, la cantine, etc.",
+      "keywords": [
+        "organisation",
+        "ambiance",
+        "cantine",
+        "horaires",
+        "avantages"
+      ]
+    },
+    {
+      "id": "T2-03-06",
+      "category": "3️⃣ 工作/职业类",
+      "role": "supérieur",
+      "prompt": "Je suis votre supérieur. Notre entreprise vous offre une opportunité de travail à l’étranger. Avant de prendre votre décision, vous désirez en savoir davantage. Vous m’interrogez sur les détails du poste (missions, salaire, bénéfices, etc.).",
+      "keywords": [
+        "missions",
+        "salaire",
+        "bénéfices",
+        "logement",
+        "durée"
+      ]
+    },
+    {
+      "id": "T2-04-01",
+      "category": "4️⃣ 住房相关",
+      "role": "agence immobilière",
+      "prompt": "Je suis employé(e) dans une agence immobilière. Vous venez de vous installer au Québec et vous cherchez un appartement. Vous me posez des questions pour vous aider à trouver un logement (procédures, quartier, logement, etc.).",
+      "keywords": [
+        "procédures",
+        "quartier",
+        "loyer",
+        "documents",
+        "meublé"
+      ]
+    },
+    {
+      "id": "T2-04-02",
+      "category": "4️⃣ 住房相关",
+      "role": "agence immobilière",
+      "prompt": "Je suis employé(e) dans une agence immobilière au Canada. Vous cherchez un appartement. Vous me posez des questions pour vous renseigner (prix, conditions, procédures, etc.).",
+      "keywords": [
+        "prix",
+        "conditions",
+        "procédures",
+        "charges",
+        "bail"
+      ]
+    },
+    {
+      "id": "T2-04-03",
+      "category": "4️⃣ 住房相关",
+      "role": "ami(e) francophone",
+      "prompt": "Je suis un(e) ami(e) francophone. Vous envisagez de venir vivre dans ma ville et souhaitez des informations pour trouver un logement (procédures, lieux, coût, etc.).",
+      "keywords": [
+        "procédures",
+        "lieux",
+        "coût",
+        "transport",
+        "quartier"
+      ]
+    },
+    {
+      "id": "T2-04-04",
+      "category": "4️⃣ 住房相关",
+      "role": "voisin(e)",
+      "prompt": "Je suis un(e) voisin(e). Vous venez de vous installer dans l’immeuble et nous nous rencontrons dans l’ascenseur. Vous me demandez des informations (voisins, ambiance, etc.).",
+      "keywords": [
+        "voisins",
+        "ambiance",
+        "commerces",
+        "règlement",
+        "quartier"
+      ]
+    },
+    {
+      "id": "T2-04-05",
+      "category": "4️⃣ 住房相关",
+      "role": "agent immobilier",
+      "prompt": "Je suis agent immobilier et vous souhaitez acheter un appartement et une offre vous intéresse. Vous me demandez alors des précisions sur le bien (superficie, coût, quartier, services à proximité, etc.).",
+      "keywords": [
+        "superficie",
+        "coût",
+        "quartier",
+        "services",
+        "visite"
+      ]
+    },
+    {
+      "id": "T2-04-06",
+      "category": "4️⃣ 住房相关",
+      "role": "ami(e) grande ville",
+      "prompt": "Je suis un(e) ami(e) et je vis dans une grande ville. Vous souhaitez louer un logement ici. Vous me demandez des informations (offres disponibles, prix, quartier, etc.).",
+      "keywords": [
+        "offres",
+        "prix",
+        "quartier",
+        "transports",
+        "garant"
+      ]
+    },
+    {
+      "id": "T2-04-07",
+      "category": "4️⃣ 住房相关",
+      "role": "collègue",
+      "prompt": "Je suis un(e) collègue et je vous propose de partager mon logement. Vous me demandez des informations sur le logement, les règles à respecter et mon mode de vie afin de décider si vous acceptez.",
+      "keywords": [
+        "loyer",
+        "règles",
+        "mode de vie",
+        "pièces",
+        "charges"
+      ]
+    },
+    {
+      "id": "T2-05-01",
+      "category": "5️⃣ 服务类（交通/医疗/图书馆）",
+      "role": "employé(e) bibliothèque",
+      "prompt": "Je suis employé(e) à la bibliothèque. Vous voulez devenir membre. Vous me posez des questions sur le fonctionnement (inscription, horaires, activités, etc.).",
+      "keywords": [
+        "inscription",
+        "horaires",
+        "activités",
+        "tarifs",
+        "prêt"
+      ]
+    },
+    {
+      "id": "T2-05-03",
+      "category": "5️⃣ 服务类（交通/医疗/图书馆）",
+      "role": "employé(e) librairie",
+      "prompt": "Je suis employé dans une librairie qui propose un jeu destiné au public. Vous me demandez des informations (inscription, contenu, utilité, etc.) pour savoir si vous souhaitez participer.",
+      "keywords": [
+        "inscription",
+        "contenu",
+        "utilité",
+        "prix",
+        "dates"
+      ]
+    },
+    {
+      "id": "T2-05-04",
+      "category": "5️⃣ 服务类（交通/医疗/图书馆）",
+      "role": "voisin(e)",
+      "prompt": "Je suis un(e) voisin(e). Vous venez d’arriver à Montréal et vous cherchez des endroits pour faire vos achats. Vous me posez des questions sur les possibilités (commerces, produits, prix).",
+      "keywords": [
+        "commerces",
+        "produits",
+        "prix",
+        "horaires",
+        "transport"
+      ]
+    },
+    {
+      "id": "T2-05-05",
+      "category": "5️⃣ 服务类（交通/医疗/图书馆）",
+      "role": "réception associations",
+      "prompt": "Je travaille à la réception de la maison des associations. Vous voulez vous inscrire et vous me posez des questions sur les activités disponibles (cours, horaires, prix, etc.).",
+      "keywords": [
+        "cours",
+        "horaires",
+        "prix",
+        "inscription",
+        "documents"
+      ]
+    },
+    {
+      "id": "T2-05-06",
+      "category": "5️⃣ 服务类（交通/医疗/图书馆）",
+      "role": "voisin(e)",
+      "prompt": "Je suis un(e) voisin(e). Je peux vous recommander quelqu’un qui s’occupe des enfants à domicile. Vous souhaitez en savoir plus et me demandez des renseignements sur cette personne (prix, disponibilité, compétences, etc.).",
+      "keywords": [
+        "prix",
+        "disponibilité",
+        "compétences",
+        "expérience",
+        "horaires"
+      ]
+    },
+    {
+      "id": "T2-05-07",
+      "category": "5️⃣ 服务类（交通/医疗/图书馆）",
+      "role": "employé(e) ludothèque",
+      "prompt": "Je suis employé(e) à la ludothèque de votre ville. Vous souhaitez adhérer et vous me posez des questions (horaires, prix, jeux disponibles, etc.).",
+      "keywords": [
+        "horaires",
+        "prix",
+        "jeux",
+        "prêt",
+        "inscription"
+      ]
+    },
+    {
+      "id": "T2-05-08",
+      "category": "5️⃣ 服务类（交通/医疗/图书馆）",
+      "role": "service transports",
+      "prompt": "Je fais partie du service des transports en commun de la ville. Vous venez d’arriver ici. Vous souhaitez vous renseigner et vous me posez des questions sur les moyens de transport, les prix, les horaires, etc.",
+      "keywords": [
+        "moyens",
+        "prix",
+        "horaires",
+        "abonnement",
+        "carte"
+      ]
+    },
+    {
+      "id": "T2-05-09",
+      "category": "5️⃣ 服务类（交通/医疗/图书馆）",
+      "role": "voisin(e)",
+      "prompt": "Je suis votre voisin(e). Vous venez de vous installer à Edmonton. Vous désirez inscrire vos enfants à l’école. Vous me demandez des renseignements sur les écoles du quartier (emplacement, enseignants, activités, etc.).",
+      "keywords": [
+        "emplacement",
+        "enseignants",
+        "activités",
+        "inscription",
+        "horaires"
+      ]
+    },
+    {
+      "id": "T2-05-10",
+      "category": "5️⃣ 服务类（交通/医疗/图书馆）",
+      "role": "voisin(e)",
+      "prompt": "Je suis un(e) voisin(e). Vous venez d’arriver au Québec et vous voulez prendre un rendez-vous chez un médecin. Vous me posez des questions pour avoir des informations sur les médecins de la ville (adresse, prix, spécialités, etc.).",
+      "keywords": [
+        "adresse",
+        "prix",
+        "spécialités",
+        "rendez-vous",
+        "assurance"
+      ]
+    },
+    {
+      "id": "T2-05-11",
+      "category": "5️⃣ 服务类（交通/医疗/图书馆）",
+      "role": "collègue",
+      "prompt": "Je suis un(e) collègue et je connais bien la ville de Montréal. Vous allez y séjourner une semaine pour des raisons professionnelles. Vous me demandez des précisions sur les transports publics (heures, prix, organisation, etc.).",
+      "keywords": [
+        "heures",
+        "prix",
+        "organisation",
+        "métro",
+        "carte"
+      ]
+    },
+    {
+      "id": "T2-06-01",
+      "category": "6️⃣ 代管类（照顾房子/宠物/小孩）",
+      "role": "voisin(e)",
+      "prompt": "Je suis un(e) voisin(e). Je dois sortir demain soir et vous acceptez de vous occuper de mon enfant. Vous me posez des questions pour connaître ses goûts et ses habitudes.",
+      "keywords": [
+        "goûts",
+        "habitudes",
+        "repas",
+        "allergies",
+        "urgence"
+      ]
+    },
+    {
+      "id": "T2-06-02",
+      "category": "6️⃣ 代管类（照顾房子/宠物/小孩）",
+      "role": "voisin(e)",
+      "prompt": "Je suis un(e) voisin(e) et nos enfants sont copains. Je vous suggère que votre enfant nous accompagne pendant nos vacances. Vous me demandez des renseignements avant de dire oui (dates, destination, activités, etc.).",
+      "keywords": [
+        "dates",
+        "destination",
+        "activités",
+        "transport",
+        "frais"
+      ]
+    },
+    {
+      "id": "T2-06-03",
+      "category": "6️⃣ 代管类（照顾房子/宠物/小孩）",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e) et je m’en vais en vacances pour un moment. Je vous confie la surveillance de mon appartement durant ce temps. Vous me demandez des précisions (dates, choses à faire, instructions, etc.).",
+      "keywords": [
+        "dates",
+        "instructions",
+        "clés",
+        "plantes",
+        "urgence"
+      ]
+    },
+    {
+      "id": "T2-06-04",
+      "category": "6️⃣ 代管类（照顾房子/宠物/小孩）",
+      "role": "voisin(e) immeuble",
+      "prompt": "Nous partageons le même immeuble. Je vous propose de garder mon enfant pendant le week-end. Vous êtes d’accord et vous m’interrogez sur les détails pratiques (temps de garde, repas, sorties, etc.).",
+      "keywords": [
+        "temps",
+        "repas",
+        "sorties",
+        "allergies",
+        "urgence"
+      ]
+    },
+    {
+      "id": "T2-07-01",
+      "category": "7️⃣ 采访/获取建议类",
+      "role": "étudiant francophone",
+      "prompt": "Pour vos cours de français, vous effectuez une enquête concernant les activités d’un jeune étudiant originaire d’un pays francophone. Je joue le rôle de cet étudiant et vous celui de l’enquêteur. Vous me posez différentes questions.",
+      "keywords": [
+        "activités",
+        "études",
+        "loisirs",
+        "culture",
+        "habitudes"
+      ]
+    },
+    {
+      "id": "T2-07-02",
+      "category": "7️⃣ 采访/获取建议类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e) et je me suis installé(e) au Québec il y a deux ans. Vous souhaitez vivre à l’étranger et vous me demandez des renseignements sur mon expérience (adaptation, obstacles, changements de mode de vie, etc.).",
+      "keywords": [
+        "adaptation",
+        "obstacles",
+        "mode de vie",
+        "travail",
+        "conseils"
+      ]
+    },
+    {
+      "id": "T2-07-03",
+      "category": "7️⃣ 采访/获取建议类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e). Je me suis installé(e) au Canada il y a quelques mois. Vous me demandez des informations sur ma vie là-bas (logement, loisirs, relations, emploi, etc.).",
+      "keywords": [
+        "logement",
+        "loisirs",
+        "relations",
+        "emploi",
+        "climat"
+      ]
+    },
+    {
+      "id": "T2-07-04",
+      "category": "7️⃣ 采访/获取建议类",
+      "role": "nouveau collègue",
+      "prompt": "Je viens de rejoindre l’équipe et nous nous rencontrons pour la première fois. Vous me posez des questions pour mieux me connaître (poste, situation familiale, loisirs, etc.).",
+      "keywords": [
+        "poste",
+        "famille",
+        "loisirs",
+        "expérience",
+        "ville"
+      ]
+    },
+    {
+      "id": "T2-07-05",
+      "category": "7️⃣ 采访/获取建议类",
+      "role": "voisin(e)",
+      "prompt": "Je suis un(e) voisin(e). Vous êtes nouvellement installé(e) au Canada et vous voulez faire de nouvelles rencontres. Vous me posez des questions sur les moyens de se faire des amis (endroits, activités, événements, etc.).",
+      "keywords": [
+        "endroits",
+        "activités",
+        "événements",
+        "associations",
+        "conseils"
+      ]
+    },
+    {
+      "id": "T2-07-06",
+      "category": "7️⃣ 采访/获取建议类",
+      "role": "ami(e) canadien(ne)",
+      "prompt": "Je suis un(e) ami(e) canadien(ne) que vous n’avez pas vu(e) depuis un long moment. Vous vous informez sur ma situation et vous m’interrogez sur ma vie quotidienne (emploi, proches, passe-temps, etc.).",
+      "keywords": [
+        "emploi",
+        "proches",
+        "passe-temps",
+        "projets",
+        "santé"
+      ]
+    },
+    {
+      "id": "T2-07-09",
+      "category": "7️⃣ 采访/获取建议类",
+      "role": "ami(e) francophone",
+      "prompt": "Je suis un(e) ami(e) francophone. Vous avez pour mission de préparer un article à propos d’un spectacle pour le bulletin de votre association culturelle francophone. Vous voulez trouver des idées et vous m’interrogez sur les spectacles que j’ai aimés (coût, type, lieu, etc.).",
+      "keywords": [
+        "coût",
+        "type",
+        "lieu",
+        "ambiance",
+        "recommandation"
+      ]
+    },
+    {
+      "id": "T2-08-01",
+      "category": "8️⃣ 社交/活动/庆祝类",
+      "role": "collègue",
+      "prompt": "Je suis un(e) collègue. Je viens de regarder un film au cinéma. Vous me demandez des informations pour savoir si ce film peut vous plaire (histoire, acteurs, horaires, etc.).",
+      "keywords": [
+        "histoire",
+        "acteurs",
+        "horaires",
+        "cinéma",
+        "avis"
+      ]
+    },
+    {
+      "id": "T2-08-02",
+      "category": "8️⃣ 社交/活动/庆祝类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e). Je déménage le week-end prochain. Vous allez m’aider et vous me demandez des informations pour organiser la journée (heure, lieu, transport, etc.).",
+      "keywords": [
+        "heure",
+        "lieu",
+        "transport",
+        "cartons",
+        "repas"
+      ]
+    },
+    {
+      "id": "T2-08-03",
+      "category": "8️⃣ 社交/活动/庆祝类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e). J’utilise régulièrement une plateforme en ligne qui organise des sorties en groupe. Vous êtes intéressé(e) et vous me posez des questions pour en savoir plus (inscription, participants, activités, etc.).",
+      "keywords": [
+        "inscription",
+        "participants",
+        "activités",
+        "prix",
+        "sécurité"
+      ]
+    },
+    {
+      "id": "T2-08-04",
+      "category": "8️⃣ 社交/活动/庆祝类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e). Vous souhaitez offrir un cadeau à mon enfant pour son anniversaire. Vous me posez des questions pour choisir le bon cadeau (jeux, habitudes, préférences, etc.).",
+      "keywords": [
+        "jeux",
+        "habitudes",
+        "préférences",
+        "âge",
+        "taille"
+      ]
+    },
+    {
+      "id": "T2-08-05",
+      "category": "8️⃣ 社交/活动/庆祝类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e). Mon anniversaire arrive bientôt, vous souhaitez organiser une fête et vous m’interrogez sur les détails (endroit, heures, invités, ambiance, etc.).",
+      "keywords": [
+        "endroit",
+        "heures",
+        "invités",
+        "ambiance",
+        "musique"
+      ]
+    },
+    {
+      "id": "T2-08-06",
+      "category": "8️⃣ 社交/活动/庆祝类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e). Je désire continuer mes études au Canada. Vous me demandez des informations pour en savoir plus sur mon projet (ville, spécialité, buts, etc.).",
+      "keywords": [
+        "ville",
+        "spécialité",
+        "buts",
+        "université",
+        "financement"
+      ]
+    },
+    {
+      "id": "T2-08-07",
+      "category": "8️⃣ 社交/活动/庆祝类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e). J’ai des objets lourds à transporter et aucun véhicule pour le faire. Vous me demandez des précisions pour m’aider à organiser cela (nature d’objets, distance, date, etc.).",
+      "keywords": [
+        "objets",
+        "distance",
+        "date",
+        "poids",
+        "aide"
+      ]
+    },
+    {
+      "id": "T2-08-08",
+      "category": "8️⃣ 社交/活动/庆祝类",
+      "role": "parent école",
+      "prompt": "Je suis parent d’un élève et nos enfants fréquentent la même école. Vous assistez à la fête de l’école pour la première fois et vous me demandez des informations sur l’événement (programme, horaires, animations, etc.).",
+      "keywords": [
+        "programme",
+        "horaires",
+        "animations",
+        "repas",
+        "entrée"
+      ]
+    },
+    {
+      "id": "T2-08-11",
+      "category": "8️⃣ 社交/活动/庆祝类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e). J’ai un paquet à envoyer, mais je ne peux pas m’en occuper. Je vous sollicite pour m’aider. Vous me demandez des informations pour vérifier si vous pouvez le prendre en charge (délai, taille du colis, durée de la démarche, etc.).",
+      "keywords": [
+        "délai",
+        "taille",
+        "durée",
+        "contenu",
+        "adresse"
+      ]
+    },
+    {
+      "id": "T2-08-13",
+      "category": "8️⃣ 社交/活动/庆祝类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e). Vous avez envie de commencer une série, mais vous êtes indécis(e). Vous me demandez des informations pour faire votre choix (catégorie, acteurs, plateforme de streaming, etc.).",
+      "keywords": [
+        "catégorie",
+        "acteurs",
+        "plateforme",
+        "épisodes",
+        "histoire"
+      ]
+    },
+    {
+      "id": "T2-08-14",
+      "category": "8️⃣ 社交/活动/庆祝类",
+      "role": "collègue",
+      "prompt": "Je suis un(e) collègue. Je vous offre deux billets pour un spectacle parce que je ne peux finalement pas y assister. Vous me posez des questions pour savoir si ce spectacle peut vous intéresser (date, endroit, type de spectacle, etc.).",
+      "keywords": [
+        "date",
+        "endroit",
+        "type",
+        "horaire",
+        "places"
+      ]
+    },
+    {
+      "id": "T2-08-15",
+      "category": "8️⃣ 社交/活动/庆祝类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e) et je vous propose de venir à une célébration. Vous êtes nouvellement arrivé(e) au Québec. Vous me demandez des précisions sur l’organisation (horaire, cadeau, habits, etc.).",
+      "keywords": [
+        "horaire",
+        "cadeau",
+        "habits",
+        "lieu",
+        "traditions"
+      ]
+    },
+    {
+      "id": "T2-09-01",
+      "category": "9️⃣ 协会/志愿/公益类",
+      "role": "membre association",
+      "prompt": "Je suis membre d’une association pour la défense des animaux. Je vous invite à y participer. Vous me posez des questions pour obtenir plus d’informations (activités, actions, public visé, etc.).",
+      "keywords": [
+        "activités",
+        "actions",
+        "public",
+        "horaires",
+        "inscription"
+      ]
+    },
+    {
+      "id": "T2-09-02",
+      "category": "9️⃣ 协会/志愿/公益类",
+      "role": "voisin(e)",
+      "prompt": "Je suis un(e) voisin(e) et je fais du bénévolat dans une association qui protège l’environnement. Vous êtes intéressé(e) à y participer et vous me demandez des précisions (activités, heures, membres, etc.).",
+      "keywords": [
+        "activités",
+        "heures",
+        "membres",
+        "lieu",
+        "missions"
+      ]
+    },
+    {
+      "id": "T2-09-03",
+      "category": "9️⃣ 协会/志愿/公益类",
+      "role": "ami(e)",
+      "prompt": "Je suis un(e) ami(e) engagé(e) dans une association qui offre des repas aux personnes sans abri. Vous souhaitez vous engager à votre tour et vous me demandez des informations sur l’association (règles, missions, horaires, etc.).",
+      "keywords": [
+        "règles",
+        "missions",
+        "horaires",
+        "lieu",
+        "engagement"
+      ]
+    },
+    {
+      "id": "T2-10-01",
+      "category": "🔟 二手买卖/物品类",
+      "role": "voisin(e)",
+      "prompt": "Je suis installé(e) au Canada mais je vais changer de logement, alors je mets mes affaires en vente. Vous venez d’arriver au Canada et vous cherchez des meubles pour votre logement. Vous me demandez des informations sur les objets à vendre (meubles, électroménager, prix, état, etc.).",
+      "keywords": [
+        "meubles",
+        "électroménager",
+        "prix",
+        "état",
+        "transport"
+      ]
+    },
+    {
+      "id": "T2-10-02",
+      "category": "🔟 二手买卖/物品类",
+      "role": "voisin(e)",
+      "prompt": "Je suis un(e) voisin(e). Je vais bientôt partir vivre à l’étranger et je veux vendre mes meubles (table, chaises, télévision, canapé, etc.) avant mon départ. Vous me posez des questions pour obtenir des informations sur ces meubles (prix, état, taille, etc.).",
+      "keywords": [
+        "prix",
+        "état",
+        "taille",
+        "disponibilité",
+        "livraison"
+      ]
+    }
+  ],
+  "tache3": [
+    {
+      "id": "T3-01-01",
+      "category": "📱 科技/互联网/媒体",
+      "prompt": "Peut-on se passer d’Internet dans la vie quotidienne ? Pourquoi ?",
+      "angles": [
+        "便利vs依赖",
+        "信息获取",
+        "社交孤立",
+        "工作效率"
+      ]
+    },
+    {
+      "id": "T3-01-03",
+      "category": "📱 科技/互联网/媒体",
+      "prompt": "Peut-on vivre aujourd’hui sans téléphone portable ? Quel est votre avis ?",
+      "angles": [
+        "urgence",
+        "travail",
+        "liberté",
+        "dépendance"
+      ]
+    },
+    {
+      "id": "T3-01-06",
+      "category": "📱 科技/互联网/媒体",
+      "prompt": "Pensez-vous que le téléphone portable personnel devrait être interdit au travail ?",
+      "angles": [
+        "concentration",
+        "productivité",
+        "urgences familiales",
+        "confiance"
+      ]
+    },
+    {
+      "id": "T3-01-07",
+      "category": "📱 科技/互联网/媒体",
+      "prompt": "Selon vous, la télévision est-elle indispensable à l’éducation des enfants ? Pourquoi ?",
+      "angles": [
+        "documentaires",
+        "passivité",
+        "créativité",
+        "lecture"
+      ]
+    },
+    {
+      "id": "T3-01-10",
+      "category": "📱 科技/互联网/媒体",
+      "prompt": "L’utilisation d’Internet peut amener les personnes à se sentir seules ? Qu’en pensez-vous ?",
+      "angles": [
+        "réseaux sociaux",
+        "relations virtuelles",
+        "isolement",
+        "communautés"
+      ]
+    },
+    {
+      "id": "T3-01-13",
+      "category": "📱 科技/互联网/媒体",
+      "prompt": "De nos jours, grâce à Internet, les relations à distance peuvent-elles être aussi solides que les relations directes ? Partagez-vous cet avis ?",
+      "angles": [
+        "appels vidéo",
+        "présence physique",
+        "émotions",
+        "confiance"
+      ]
+    },
+    {
+      "id": "T3-01-15",
+      "category": "📱 科技/互联网/媒体",
+      "prompt": "Faut-il inclure l’enseignement des technologies modernes (Internet, réseaux sociaux, etc.) dans le programme scolaire ? Pourquoi ?",
+      "angles": [
+        "esprit critique",
+        "sécurité en ligne",
+        "avenir professionnel",
+        "temps d'écran"
+      ]
+    },
+    {
+      "id": "T3-01-17",
+      "category": "📱 科技/互联网/媒体",
+      "prompt": "Pensez-vous qu’il serait préférable d’interdire l’utilisation des téléphones portables aux enfants ? Pourquoi ?",
+      "angles": [
+        "santé",
+        "concentration",
+        "sécurité",
+        "éducation numérique"
+      ]
+    },
+    {
+      "id": "T3-02-01",
+      "category": "🎓 教育/儿童/阅读",
+      "prompt": "À votre avis, faut-il de l’autorité pour élever correctement un enfant ? Pourquoi ?",
+      "angles": [
+        "limites",
+        "dialogue",
+        "autonomie",
+        "respect"
+      ]
+    },
+    {
+      "id": "T3-02-02",
+      "category": "🎓 教育/儿童/阅读",
+      "prompt": "Faut-il avoir un niveau d’études élevé pour réussir dans la vie ? Pourquoi ?",
+      "angles": [
+        "diplômes",
+        "expérience pratique",
+        "entrepreneuriat",
+        "compétences"
+      ]
+    },
+    {
+      "id": "T3-02-03",
+      "category": "🎓 教育/儿童/阅读",
+      "prompt": "Pensez-vous que les disciplines culturelles (musique, dessin, théâtre, etc.) ne devraient pas faire partie de l’enseignement scolaire ? Pourquoi ?",
+      "angles": [
+        "créativité",
+        "ouverture d'esprit",
+        "matières scientifiques",
+        "équilibre"
+      ]
+    },
+    {
+      "id": "T3-02-05",
+      "category": "🎓 教育/儿童/阅读",
+      "prompt": "Selon vous, lire est-il une activité inutile ? Pourquoi ?",
+      "angles": [
+        "imagination",
+        "vocabulaire",
+        "réflexion",
+        "numérique"
+      ]
+    },
+    {
+      "id": "T3-02-06",
+      "category": "🎓 教育/儿童/阅读",
+      "prompt": "Selon vous, est-ce que les jeunes ont plus de facilité à apprendre une langue étrangère que les personnes âgées ?",
+      "angles": [
+        "plasticité",
+        "motivation",
+        "expérience",
+        "peur de l'erreur"
+      ]
+    },
+    {
+      "id": "T3-02-10",
+      "category": "🎓 教育/儿童/阅读",
+      "prompt": "Faut-il forcer les enfants à faire du sport ? Qu’en pensez-vous ? Pourquoi ?",
+      "angles": [
+        "santé",
+        "esprit d'équipe",
+        "plaisir",
+        "découverte"
+      ]
+    },
+    {
+      "id": "T3-03-01",
+      "category": "💼 工作/职业/经济",
+      "prompt": "Selon vous, réussir sa carrière dépend-il surtout des études et du diplôme ?",
+      "angles": [
+        "réseau",
+        "motivation",
+        "formation",
+        "adaptation"
+      ]
+    },
+    {
+      "id": "T3-03-03",
+      "category": "💼 工作/职业/经济",
+      "prompt": "Le développement du télétravail est une amélioration pour tous. Qu’en pensez-vous ?",
+      "angles": [
+        "équilibre vie-travail",
+        "transport",
+        "isolement",
+        "cohésion d'équipe"
+      ]
+    },
+    {
+      "id": "T3-03-04",
+      "category": "💼 工作/职业/经济",
+      "prompt": "Est-il raisonnable de faire travailler les personnes jusqu’à l’âge de 70 ans ? Pourquoi ?",
+      "angles": [
+        "espérance de vie",
+        "retraites",
+        "pénibilité",
+        "transmission"
+      ]
+    },
+    {
+      "id": "T3-03-05",
+      "category": "💼 工作/职业/经济",
+      "prompt": "Les employés sont-ils surtout motivés par leur salaire ? Pourquoi ?",
+      "angles": [
+        "pouvoir d'achat",
+        "reconnaissance",
+        "ambiance",
+        "sens du travail"
+      ]
+    },
+    {
+      "id": "T3-03-08",
+      "category": "💼 工作/职业/经济",
+      "prompt": "À votre avis, est-il préférable que tous les employés d’une entreprise gagnent le même salaire ? Pourquoi ?",
+      "angles": [
+        "égalité",
+        "mérite",
+        "responsabilités",
+        "motivation"
+      ]
+    },
+    {
+      "id": "T3-03-09",
+      "category": "💼 工作/职业/经济",
+      "prompt": "Pensez-vous qu’il soit nécessaire d’apprécier son métier pour réussir professionnellement ? Expliquez.",
+      "angles": [
+        "passion",
+        "persévérance",
+        "stress",
+        "performance"
+      ]
+    },
+    {
+      "id": "T3-04-01",
+      "category": "✈️ 移民/海外生活/文化融入",
+      "prompt": "S’installer à l’étranger, est-ce changer de culture ? Qu’en pensez-vous ?",
+      "angles": [
+        "intégration",
+        "identité",
+        "ouverture",
+        "traditions"
+      ]
+    },
+    {
+      "id": "T3-04-02",
+      "category": "✈️ 移民/海外生活/文化融入",
+      "prompt": "Pensez-vous qu’il est facile de se faire des amis dans un pays étranger ? Pourquoi ?",
+      "angles": [
+        "barrière linguistique",
+        "associations",
+        "codes sociaux",
+        "temps"
+      ]
+    },
+    {
+      "id": "T3-04-03",
+      "category": "✈️ 移民/海外生活/文化融入",
+      "prompt": "Est-ce que maîtriser la langue du pays d’accueil est suffisant pour réussir son intégration ? Pourquoi ?",
+      "angles": [
+        "emploi",
+        "culture",
+        "réseau social",
+        "valeurs"
+      ]
+    },
+    {
+      "id": "T3-04-05",
+      "category": "✈️ 移民/海外生活/文化融入",
+      "prompt": "Vivre à l’étranger implique-t-il de rester proche de la communauté de son pays natal ? Quel est votre avis ?",
+      "angles": [
+        "soutien moral",
+        "repli communautaire",
+        "intégration",
+        "double culture"
+      ]
+    },
+    {
+      "id": "T3-04-07",
+      "category": "✈️ 移民/海外生活/文化融入",
+      "prompt": "Quelles sont les trois principales choses à réfléchir avant de se lancer dans un projet d’immigration au Québec ? Expliquez.",
+      "angles": [
+        "langue française",
+        "climat",
+        "marché du travail",
+        "finances"
+      ]
+    },
+    {
+      "id": "T3-04-10",
+      "category": "✈️ 移民/海外生活/文化融入",
+      "prompt": "Est-ce que les bénéfices de vivre à l’étranger surpassent ses inconvénients ? Pourquoi ?",
+      "angles": [
+        "opportunités",
+        "éloignement familial",
+        "évolution personnelle",
+        "adaptation"
+      ]
+    },
+    {
+      "id": "T3-04-14",
+      "category": "✈️ 移民/海外生活/文化融入",
+      "prompt": "Est-ce plus facile de s’adapter à un nouveau pays quand on est jeune ? Quel est votre avis ?",
+      "angles": [
+        "flexibilité",
+        "apprentissage",
+        "attaches",
+        "maturité"
+      ]
+    },
+    {
+      "id": "T3-05-01",
+      "category": "🏥 健康/饮食/身心/运动",
+      "prompt": "La bonne santé exige-t-elle de consommer seulement des produits biologiques ? Êtes-vous d’accord ?",
+      "angles": [
+        "pesticides",
+        "budget",
+        "équilibre alimentaire",
+        "sport"
+      ]
+    },
+    {
+      "id": "T3-05-02",
+      "category": "🏥 健康/饮食/身心/运动",
+      "prompt": "Le plus important pour conserver la santé est-il de bien se nourrir ? Qu’en pensez-vous ?",
+      "angles": [
+        "alimentation",
+        "sommeil",
+        "activité physique",
+        "stress"
+      ]
+    },
+    {
+      "id": "T3-05-03",
+      "category": "🏥 健康/饮食/身心/运动",
+      "prompt": "Quelles mesures pourrait-on prendre pour inciter les personnes à faire davantage de sport ?",
+      "angles": [
+        "infrastructures",
+        "subventions",
+        "entreprise",
+        "sensibilisation"
+      ]
+    },
+    {
+      "id": "T3-05-04",
+      "category": "🏥 健康/饮食/身心/运动",
+      "prompt": "Certaines personnes estiment qu’il est impossible de combattre le stress. Quel est votre avis ?",
+      "angles": [
+        "méditation",
+        "organisation",
+        "sport",
+        "environnement"
+      ]
+    },
+    {
+      "id": "T3-05-05",
+      "category": "🏥 健康/饮食/身心/运动",
+      "prompt": "De nombreuses personnes se tournent vers la chirurgie esthétique pour sembler plus jeunes. Qu’en pensez-vous ?",
+      "angles": [
+        "confiance en soi",
+        "pression sociale",
+        "risques médicaux",
+        "acceptation"
+      ]
+    },
+    {
+      "id": "T3-06-01",
+      "category": "🌱 环保/交通/旅游影响",
+      "prompt": "De nos jours, il est possible de vivre sans voiture. Qu’en pensez-vous ?",
+      "angles": [
+        "transports en commun",
+        "zones rurales",
+        "écologie",
+        "coût"
+      ]
+    },
+    {
+      "id": "T3-06-03",
+      "category": "🌱 环保/交通/旅游影响",
+      "prompt": "Pensez-vous que les transports en commun doivent être accessibles gratuitement à tous les habitants des grandes villes ?",
+      "angles": [
+        "pollution",
+        "impôts",
+        "qualité de service",
+        "mobilité"
+      ]
+    },
+    {
+      "id": "T3-06-05",
+      "category": "🌱 环保/交通/旅游影响",
+      "prompt": "Selon vous, doit-on protéger tous les animaux en voie de disparition ? Pourquoi ?",
+      "angles": [
+        "biodiversité",
+        "écosystème",
+        "coût économique",
+        "responsabilité humaine"
+      ]
+    },
+    {
+      "id": "T3-06-06",
+      "category": "🌱 环保/交通/旅游影响",
+      "prompt": "La croissance du tourisme peut détériorer certaines régions. Qu’en pensez-vous ?",
+      "angles": [
+        "surtourisme",
+        "économie locale",
+        "environnement",
+        "régulation"
+      ]
+    },
+    {
+      "id": "T3-06-07",
+      "category": "🌱 环保/交通/旅游影响",
+      "prompt": "Pensez-vous que l’exploration de l’espace est trop chère et qu’elle n’est pas nécessaire ? Pourquoi ?",
+      "angles": [
+        "progrès scientifique",
+        "pauvreté sur Terre",
+        "satellites",
+        "avenir"
+      ]
+    },
+    {
+      "id": "T3-07-01",
+      "category": "👥 社会/人际/家庭",
+      "prompt": "Aujourd’hui, les jeunes sont de moins en moins respectueux. Êtes-vous d’accord ? Pourquoi ?",
+      "angles": [
+        "générations",
+        "éducation",
+        "réseaux sociaux",
+        "évolution des valeurs"
+      ]
+    },
+    {
+      "id": "T3-07-03",
+      "category": "👥 社会/人际/家庭",
+      "prompt": "Pensez-vous que l’on puisse être épanoui en vivant seul ? Pourquoi ?",
+      "angles": [
+        "liberté",
+        "solitude",
+        "vie sociale",
+        "autonomie"
+      ]
+    },
+    {
+      "id": "T3-07-05",
+      "category": "👥 社会/人际/家庭",
+      "prompt": "De jeunes Canadiens choisissent d’habiter chez leurs parents, parce qu’ils s’y sentent confortables. Qu’en pensez-vous ?",
+      "angles": [
+        "coût du logement",
+        "autonomie",
+        "solidarité familiale",
+        "maturité"
+      ]
+    },
+    {
+      "id": "T3-07-07",
+      "category": "👥 社会/人际/家庭",
+      "prompt": "Pensez-vous que les personnes célèbres devraient jouer un rôle plus actif dans la vie publique ?",
+      "angles": [
+        "influence",
+        "causes humanitaires",
+        "légitimité",
+        "responsabilité"
+      ]
+    },
+    {
+      "id": "T3-07-10",
+      "category": "👥 社会/人际/家庭",
+      "prompt": "Pensez-vous que vivre en ville provoque toujours du stress ? Êtes-vous d’accord ?",
+      "angles": [
+        "bruit",
+        "transports",
+        "opportunités",
+        "espaces verts"
+      ]
+    },
+    {
+      "id": "T3-07-13",
+      "category": "👥 社会/人际/家庭",
+      "prompt": "Selon vous, est-il possible d’être heureux sans avoir d’amis ? Pourquoi ?",
+      "angles": [
+        "famille",
+        "partage",
+        "soutien",
+        "introversion"
+      ]
+    },
+    {
+      "id": "T3-07-17",
+      "category": "👥 社会/人际/家庭",
+      "prompt": "Pensez-vous qu’il soit nécessaire de réserver une journée pour les droits des femmes ? Pourquoi ?",
+      "angles": [
+        "sensibilisation",
+        "égalité salariale",
+        "action quotidienne",
+        "histoire"
+      ]
+    },
+    {
+      "id": "T3-08-01",
+      "category": "🤝 公益/志愿/人道",
+      "prompt": "De nombreuses personnes consacrent leur temps libre à des activités bénévoles. Qu’en pensez-vous ?",
+      "angles": [
+        "solidarité",
+        "expérience humaine",
+        "cohésion sociale",
+        "temps"
+      ]
+    },
+    {
+      "id": "T3-08-02",
+      "category": "🤝 公益/志愿/人道",
+      "prompt": "Les ONG et les associations sont-elles les seules capables d’aider les personnes pauvres ? Qu’en pensez-vous ?",
+      "angles": [
+        "État",
+        "entreprises",
+        "citoyens",
+        "efficacité"
+      ]
+    },
+    {
+      "id": "T3-08-03",
+      "category": "🤝 公益/志愿/人道",
+      "prompt": "Quelles sont les raisons qui peuvent pousser une personne à s’engager dans une action humanitaire ?",
+      "angles": [
+        "empathie",
+        "valeurs",
+        "voyage",
+        "utilité sociale"
+      ]
+    },
+    {
+      "id": "T3-09-01",
+      "category": "🎭 文化/娱乐/动物",
+      "prompt": "Préférez-vous regarder des films ou aller au théâtre ? Pourquoi ?",
+      "angles": [
+        "émotion en direct",
+        "effets spéciaux",
+        "prix",
+        "culture"
+      ]
+    },
+    {
+      "id": "T3-09-03",
+      "category": "🎭 文化/娱乐/动物",
+      "prompt": "Quel est votre avis sur le fait de posséder un animal domestique chez soi ?",
+      "angles": [
+        "compagnie",
+        "responsabilité",
+        "coût",
+        "espace"
+      ]
+    },
+    {
+      "id": "T3-09-04",
+      "category": "🎭 文化/娱乐/动物",
+      "prompt": "Pensez-vous qu’un animal de compagnie peut être positif pour une personne âgée ? Pourquoi ?",
+      "angles": [
+        "solitude",
+        "promenades",
+        "santé mentale",
+        "contraintes"
+      ]
+    }
+  ]
+}
