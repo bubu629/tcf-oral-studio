@@ -348,8 +348,9 @@
         document.getElementById("timerDisplay").innerText = "⏱️ " + String(Math.floor(elapsedSec / 60)).padStart(2, "0") + ":" + String(elapsedSec % 60).padStart(2, "0");
       }, 1000);
 
-      const firstPrompt = visibleBank.tache1[0].prompt;
-      appendMessage("examiner", "Examinateur · Tâche 1", firstPrompt);
+      const t2 = getActiveTopic();
+      const firstPrompt = t2.prompt;
+      appendMessage("examiner", "Consigne Tâche 2 (" + t2.role + ")", "[" + t2.category + "] " + firstPrompt);
       document.getElementById("recStatus").innerText = "🔊 考官正在朗读提问...";
       await speakFrench(firstPrompt);
       await startTurnRecording();
@@ -481,12 +482,7 @@ Retourne UNIQUEMENT un JSON valide:
         await speakFrench(replyFr);
 
         if (aiRes.should_advance_stage) {
-          if (currentStage === "tache1") {
-            currentStage = "tache2"; turnIndex = 0; setStagePill("tache2");
-            const t2 = getActiveTopic();
-            appendMessage("examiner", "Consigne Tâche 2 (" + t2.role + ")", "[" + t2.category + "] " + t2.prompt);
-            await speakFrench(t2.prompt);
-          } else if (currentStage === "tache2") {
+          if (currentStage === "tache2") {
             currentStage = "tache3"; turnIndex = 0; setStagePill("tache3");
             const t3 = getActiveTopic();
             appendMessage("examiner", "Consigne Tâche 3", "[" + t3.category + "] " + t3.prompt);
