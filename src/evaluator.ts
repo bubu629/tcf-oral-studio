@@ -1,6 +1,5 @@
 // src/evaluator.ts
 export interface TurnTranscript {
-  tache: 'tache1' | 'tache2' | 'tache3';
   turn_index: number;
   examiner_prompt: string;
   candidate_text: string;
@@ -107,10 +106,8 @@ const FRENCH_GRAMMAR_PATTERNS: Array<{
 ];
 
 /**
- * Generates realistic examiner dialogue replies in French based on Tâche 1/2/3 role & candidate speech
  */
 export function generateExaminerReply(params: {
-  tache: 'tache1' | 'tache2' | 'tache3';
   role: string;
   topicPrompt: string;
   keywords: string[];
@@ -119,21 +116,6 @@ export function generateExaminerReply(params: {
 }): { reply_fr: string; hint_zh: string; is_tache_complete: boolean } {
   const text = params.candidateText.trim();
   const hasQuestionMark = text.includes('?') || /^(est-ce que|quel|quelle|quels|quelles|combien|quand|où|comment|pourquoi|pouvez-vous|pourriez-vous|avez-vous|y a-t-il)/i.test(text);
-
-  if (params.tache === 'tache1') {
-    if (params.turnIndex === 0) {
-      return {
-        reply_fr: "Très bien, merci pour cette présentation. Pouvez-vous me parler un peu plus de votre expérience professionnelle actuelle et de ce qui vous motive à vous installer au Canada ?",
-        hint_zh: "考官追问：请补充说明你目前的工作经历以及移民加拿大的具体动机。",
-        is_tache_complete: false
-      };
-    }
-    return {
-      reply_fr: "Parfait, je vous remercie. Nous allons maintenant passer à la deuxième partie de l’épreuve (Tâche 2 : Interaction). Lisez bien la consigne et posez-moi vos questions quand vous êtes prêt(e).",
-      hint_zh: "Tâche 1 完成！请点击「下一步」进入 Tâche 2 情景互动提问环节。",
-      is_tache_complete: true
-    };
-  }
 
   if (params.tache === 'tache2') {
     const remaining = params.keywords.filter((kw) => !text.toLowerCase().includes(kw.toLowerCase()));

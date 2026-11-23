@@ -66,7 +66,6 @@
 
     <div class="card">
       <div class="stage-pills">
-        <div id="pill-tache1" class="pill active">Tâche 1 · 自我介绍</div>
         <div id="pill-tache2" class="pill">Tâche 2 · 情景发问</div>
         <div id="pill-tache3" class="pill">Tâche 3 · 观点辩论</div>
       </div>
@@ -136,10 +135,7 @@
   <script>
     const STORAGE_KEY = "tcf_canada_offline_license_v2";
     const API_KEY_STORAGE = "tcf_canada_ai_key_v1";
-    let FULL_BANK = { tache1: [], tache2: [], tache3: [] };
     let activeLicense = { tier: "COMMUNITY", unlock_all_topics: false };
-    let visibleBank = { tache1: [], tache2: [], tache3: [] };
-    let currentStage = "tache1", turnIndex = 0, turnStartTime = Date.now(), examStartTime = 0, timerInterval = null;
     let transcriptHistory = [];
     let micStream = null, mediaRecorder = null, turnChunks = [], audioMimeType = "audio/webm", lastTurnBlob = null;
 
@@ -239,7 +235,6 @@
         visibleBank = FULL_BANK;
         document.getElementById("licenseBadge").innerText = "版本: " + activeLicense.tier + " (全题库已解锁)";
       } else {
-        visibleBank = { tache1: FULL_BANK.tache1, tache2: FULL_BANK.tache2.slice(0, 8), tache3: FULL_BANK.tache3.slice(0, 8) };
         document.getElementById("licenseBadge").innerText = "COMMUNITY 免费版 (前8题)";
       }
       document.getElementById("t2Count").innerText = visibleBank.tache2.length + " / " + FULL_BANK.tache2.length;
@@ -293,7 +288,6 @@
     }
 
     function setStagePill(stage) {
-      ["tache1", "tache2", "tache3"].forEach(s => document.getElementById("pill-" + s).classList.toggle("active", s === stage));
     }
 
     async function startTurnRecording() {
@@ -330,11 +324,8 @@
     }
 
     async function startExam() {
-      if (!visibleBank.tache1.length) return alert("题库尚未加载完成。");
-      currentStage = "tache1"; turnIndex = 0; transcriptHistory = [];
       document.getElementById("chatBox").innerHTML = "";
       document.getElementById("reportPanel").style.display = "none";
-      setStagePill("tache1");
 
       document.getElementById("btnNext").disabled = false;
       document.getElementById("btnFinish").disabled = false;
@@ -349,15 +340,12 @@
         document.getElementById("timerDisplay").innerText = "⏱️ " + String(Math.floor(elapsedSec / 60)).padStart(2, "0") + ":" + String(elapsedSec % 60).padStart(2, "0");
       }, 1000);
 
-      const firstPrompt = visibleBank.tache1[0].prompt;
-      appendMessage("examiner", "Examinateur · Tâche 1", firstPrompt);
       document.getElementById("recStatus").innerText = "🔊 考官正在朗读提问...";
       await speakFrench(firstPrompt);
       await startTurnRecording();
     }
 
     function getActiveTopic() {
-      if (currentStage === "tache1") return visibleBank.tache1[0];
       if (currentStage === "tache2") return visibleBank.tache2[document.getElementById("t2Select").value];
       return visibleBank.tache3[document.getElementById("t3Select").value];
     }
@@ -416,7 +404,6 @@ ${historyText || "(Début)"}
 Tâche:
 1. Écoute attentivement l'audio (ou lis le texte tapé) du candidat et transcris EXACTEMENT ce qu'il a dit dans "user_transcript".
 2. Réponds-lui NATURELLEMENT en français comme un vrai examinateur/interlocuteur humain dans "examiner_reply_fr" (2 à 3 phrases max):
-   - En Tâche 1: réagis à ce qu'il vient de dire et pose une question de suivi naturelle (après 2 tours, propose de passer à la Tâche 2 et mets should_advance_stage=true).
    - En Tâche 2: réponds BRIÈVEMENT et directement à la question du candidat dans ton rôle (${topic.role || "interlocuteur"}) en 1 ou 2 phrases courtes maximum. INTERDICTION ABSOLUE de poser une question ou de demander s'il a d'autres questions (n'utilise aucun point d'interrogation '?'). Après 8-10 tours seulement, conclus brièvement sans question et mets should_advance_stage=true.
    - En Tâche 3: réagis à SON argument et oppose-lui une contre-argumentation stimulante (après 2 tours, conclus l'examen et mets should_advance_stage=true).
    - Si le candidat n'a rien dit d'intelligible (silence, chinois, "la la la"), demande-lui poliment en français de répéter sa réponse en français et mets should_advance_stage=false.
@@ -483,20 +470,6 @@ Retourne UNIQUEMENT un JSON valide:
         await speakFrench(replyFr);
 
         if (aiRes.should_advance_stage) {
-          if (currentStage === "tache1") {
-            currentStage = "tache2"; turnIndex = 0; setStagePill("tache2");
-            const t2 = getActiveTopic();
-            appendMessage("examiner", "Consigne Tâche 2 (" + t2.role + ")", "[" + t2.category + "] " + t2.prompt);
-            await speakFrench(t2.prompt);
-          } else if (currentStage === "tache2") {
-            currentStage = "tache3"; turnIndex = 0; setStagePill("tache3");
-            const t3 = getActiveTopic();
-            appendMessage("examiner", "Consigne Tâche 3", "[" + t3.category + "] " + t3.prompt);
-            await speakFrench(t3.prompt);
-          } else {
-            await finishExamAndAnalyze();
-            return;
-          }
         } else {
           turnIndex++;
         }

@@ -36,7 +36,6 @@ app.get('/api/init', async () => {
   const filteredBank = activeLicense.unlock_all_topics
     ? questionBank
     : {
-        tache1: questionBank.tache1,
         tache2: questionBank.tache2.slice(0, 8),
         tache3: questionBank.tache3.slice(0, 8)
       };
@@ -64,7 +63,6 @@ app.post('/api/license/activate', async (req, reply) => {
 
 app.post('/api/turn', async (req) => {
   const body = req.body as {
-    tache: 'tache1' | 'tache2' | 'tache3';
     role: string;
     topicPrompt: string;
     keywords: string[];
@@ -218,7 +216,6 @@ app.get('/', async (_req, reply) => {
       <!-- Right Main Area: Live Examiner Interaction -->
       <div class="card">
         <div class="stage-pills">
-          <div id="pill-tache1" class="pill active">Tâche 1 · 自我介绍 (2 min)</div>
           <div id="pill-tache2" class="pill">Tâche 2 · 情景提问 (5 min)</div>
           <div id="pill-tache3" class="pill">Tâche 3 · 观点辩论 (4 min)</div>
         </div>
@@ -284,7 +281,6 @@ app.get('/', async (_req, reply) => {
 
   <script>
     let bankData = null;
-    let currentStage = 'tache1';
     let turnIndex = 0;
     let turnStartTime = Date.now();
     let examStartTime = 0;
@@ -362,20 +358,15 @@ app.get('/', async (_req, reply) => {
     }
 
     function setStagePill(stage) {
-      ['tache1', 'tache2', 'tache3'].forEach(s => {
-        document.getElementById('pill-' + s).classList.toggle('active', s === stage);
-      });
     }
 
     async function startExam() {
       sessionId = 'TCF_' + new Date().toISOString().replace(/[:.]/g, '-');
-      currentStage = 'tache1';
       turnIndex = 0;
       transcriptHistory = [];
       audioChunks = [];
       document.getElementById('chatBox').innerHTML = '';
       document.getElementById('reportPanel').style.display = 'none';
-      setStagePill('tache1');
 
       // Start Microphone Recording
       try {
@@ -420,8 +411,6 @@ app.get('/', async (_req, reply) => {
         document.getElementById('timerDisplay').innerText = \`⏱️ 计时: \${mm}:\${ss}\`;
       }, 1000);
 
-      const firstPrompt = bankData.tache1[0].prompt;
-      appendMessage('examiner', 'Examinateur · Tâche 1 (Entretien dirigé)', firstPrompt);
       speakFrench(firstPrompt);
     }
 
@@ -439,7 +428,6 @@ app.get('/', async (_req, reply) => {
     }
 
     function getActiveTopic() {
-      if (currentStage === 'tache1') return bankData.tache1[0];
       if (currentStage === 'tache2') return bankData.tache2[document.getElementById('t2Select').value];
       return bankData.tache3[document.getElementById('t3Select').value];
     }
@@ -488,30 +476,6 @@ app.get('/', async (_req, reply) => {
       speakFrench(data.reply_fr);
 
       if (data.is_tache_complete) {
-        if (currentStage === 'tache1') {
-          currentStage = 'tache2';
-          turnIndex = 0;
-          setStagePill('tache2');
-          const t2 = getActiveTopic();
-          setTimeout(() => {
-            const intro = \`[情景设定 · \${t2.category}] \${t2.prompt}\`;
-            appendMessage('examiner', \`Consigne Tâche 2 (扮演角色: \${t2.role})\`, intro);
-            speakFrench(t2.prompt);
-          }, 1200);
-        } else if (currentStage === 'tache2') {
-          currentStage = 'tache3';
-          turnIndex = 0;
-          setStagePill('tache3');
-          const t3 = getActiveTopic();
-          setTimeout(() => {
-            const intro = \`[辩论主题 · \${t3.category}] \${t3.prompt}\`;
-            appendMessage('examiner', 'Consigne Tâche 3 (无准备观点陈述)', intro);
-            speakFrench(t3.prompt);
-          }, 1200);
-        } else {
-          // Exam finished
-          finishExamAndAnalyze();
-        }
       } else {
         turnIndex++;
       }

@@ -1,25 +1,4 @@
 {
-  "tache1": [
-    {
-      "id": "T1-01",
-      "category": "Entretien dirigé (自我介绍与日常问答)",
-      "role": "Examinateur TCF Canada",
-      "prompt": "Bonjour, installez-vous. Pouvez-vous vous présenter en quelques minutes ? Parlez-moi de votre parcours, de votre profession et des raisons pour lesquelles vous souhaitez immigrer au Canada.",
-      "keywords": [
-        "présentation",
-        "travail",
-        "études",
-        "Canada",
-        "immigration",
-        "loisirs"
-      ],
-      "follow_ups": [
-        "Qu'est-ce qui vous attire particulièrement au Canada ou au Québec ?",
-        "Comment décririez-vous une journée typique dans votre travail actuel ?",
-        "Quels sont vos projets professionnels une fois installé(e) au Canada ?"
-      ]
-    }
-  ],
   "tache2": [
     {
       "id": "T2-01-01",
